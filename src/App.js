@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import CreateList from "./pages/CreateList";
+import styled from "styled-components";
+import HelmetComponent from "./components/HelmetComponent";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <HelmetComponent />
+      <MobileContainer>
+        <CreateList></CreateList>
+      </MobileContainer>
+    </>
   );
 }
+
+const MobileContainer = styled.div`
+  border: 1px solid black;
+  min-width: 380px;
+  max-width: 430px;
+  margin: 0 auto;
+  font-family: "Oleo Script Swash Caps", cursive;
+`;
 
 export default App;
