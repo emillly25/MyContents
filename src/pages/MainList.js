@@ -1,25 +1,33 @@
 import Logo from "../components/Logo";
 import ContentListItem from "../components/ContentListItem";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
+import queryString from "query-string";
 
 function MainList({ data }) {
   const navigate = useNavigate();
+  const { search } = useLocation();
+  const { genre } = queryString.parse(search);
   const [genreData, setGenreData] = useState(data);
 
   const tabChangeHandler = async (genre) => {
     if (genre === "drama") {
       const dramaData = data.filter((el) => el.genre === "drama");
       await setGenreData(dramaData);
+      console.log(genre);
+      navigate("?genre=drama");
     } else if (genre === "movie") {
       const movieData = data.filter((el) => el.genre === "movie");
       await setGenreData(movieData);
+      navigate("?genre=movie");
     } else if (genre === "book") {
       const bookData = data.filter((el) => el.genre === "book");
       await setGenreData(bookData);
+      navigate("?genre=book");
     } else {
       await setGenreData(data);
+      navigate("/");
     }
   };
 
