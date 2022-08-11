@@ -1,24 +1,28 @@
 import CreateList from "./pages/CreateList";
-import styled from "styled-components";
+import MainList from "./pages/MainList";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HelmetComponent from "./components/HelmetComponent";
+import { useState } from "react";
 
 function App() {
+  const [data, setData] = useState([]);
+
+  const onCreate = (data) => {
+    setData((cur) => {
+      const newData = [...cur, data];
+      return newData;
+    });
+  };
   return (
     <>
-      <HelmetComponent />
-      <MobileContainer>
-        <CreateList></CreateList>
-      </MobileContainer>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainList data={data} />} />
+          <Route path="/create" element={<CreateList onCreate={onCreate} />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
-
-const MobileContainer = styled.div`
-  border: 1px solid black;
-  min-width: 380px;
-  max-width: 430px;
-  margin: 0 auto;
-  font-family: "Oleo Script Swash Caps", cursive;
-`;
 
 export default App;

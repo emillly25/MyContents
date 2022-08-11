@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Logo from "../components/Logo";
 import {
   TextField,
   Select,
@@ -11,8 +12,10 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { MobileDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function CreateList() {
+function CreateList({ onCreate }) {
+  const navigate = useNavigate();
   const [value, setValue] = useState({
     title: "",
     genre: "",
@@ -31,8 +34,8 @@ function CreateList() {
     });
   };
   return (
-    <div>
-      <Logo>My Contents 🎬 </Logo>
+    <MobileContainer>
+      <Logo />
       <CreateContent>
         <TextField
           id="outlined"
@@ -104,20 +107,22 @@ function CreateList() {
           onClick={(e) => {
             e.preventDefault();
             const obj = { ...value, date };
-            console.log(obj);
+            onCreate(obj);
+            navigate("/");
           }}
         >
-          기록하기
+          저장
         </SubmitBtn>
       </ButtonBox>
-    </div>
+    </MobileContainer>
   );
 }
 
-const Logo = styled.h1`
-  text-align: center;
-  margin: 20px 0;
-  font-size: 36px;
+const MobileContainer = styled.div`
+  border: 1px solid black;
+  min-width: 380px;
+  max-width: 430px;
+  margin: 0 auto;
 `;
 
 const CreateContent = styled.div`
