@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function ContentListItem({ title, genre }) {
+  const navigate = useNavigate();
   const createLabel = (genre) => {
     if (genre === "drama") {
       return "pink";
@@ -11,7 +13,11 @@ function ContentListItem({ title, genre }) {
     }
   };
   return (
-    <List>
+    <List
+      onClick={() => {
+        navigate(`/detail/${title}`);
+      }}
+    >
       <Label createLabel={createLabel(genre)} />
       <Title>{title}</Title>
     </List>

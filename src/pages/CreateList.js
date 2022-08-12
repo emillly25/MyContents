@@ -13,13 +13,14 @@ import { MobileDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 
 function CreateList({ onCreate }) {
   const navigate = useNavigate();
   const [value, setValue] = useState({
     title: "",
     genre: "",
-    rating: null,
+    rating: 0,
     memo: "",
     date: null,
   });
@@ -30,6 +31,14 @@ function CreateList({ onCreate }) {
     setValue((cur) => {
       const newValue = { ...cur };
       newValue[e.target.name] = e.target.value;
+      return newValue;
+    });
+  };
+
+  const numberChange = (e) => {
+    setValue((cur) => {
+      const newValue = { ...cur };
+      newValue[e.target.name] = Number(e.target.value);
       return newValue;
     });
   };
@@ -95,8 +104,8 @@ function CreateList({ onCreate }) {
         <RatingBox>
           <Rating
             name="rating"
-            value={Number(value.rating)}
-            onChange={handleChange}
+            value={value.rating}
+            onChange={numberChange}
             style={{ fontSize: "45px" }}
           />
         </RatingBox>
@@ -106,7 +115,10 @@ function CreateList({ onCreate }) {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            const obj = { ...value, date };
+            const obj = {
+              ...value,
+              date: dayjs(date).format("YYYY-MM-DD"),
+            };
             onCreate(obj);
             navigate("/");
           }}
