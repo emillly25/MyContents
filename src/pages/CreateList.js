@@ -18,6 +18,7 @@ import dayjs from "dayjs";
 function CreateList({ onCreate }) {
   const navigate = useNavigate();
   const [value, setValue] = useState({
+    id: 0,
     title: "",
     genre: "",
     rating: 0,
@@ -69,9 +70,9 @@ function CreateList({ onCreate }) {
               value={value.genre}
               onChange={handleChange}
             >
-              <MenuItem value={"drama"}>드라마</MenuItem>
-              <MenuItem value={"movie"}>영화</MenuItem>
-              <MenuItem value={"book"}>책</MenuItem>
+              <MenuItem value={"드라마"}>드라마</MenuItem>
+              <MenuItem value={"영화"}>영화</MenuItem>
+              <MenuItem value={"책"}>책</MenuItem>
             </Select>
           </FormControl>
           <DateBox>
@@ -120,6 +121,7 @@ function CreateList({ onCreate }) {
               date: dayjs(date).format("YYYY-MM-DD"),
             };
             onCreate(obj);
+
             navigate("/");
           }}
         >

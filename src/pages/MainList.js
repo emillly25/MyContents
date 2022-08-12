@@ -12,19 +12,19 @@ function MainList({ data }) {
   const [genreData, setGenreData] = useState(data);
 
   const tabChangeHandler = async (genre) => {
-    if (genre === "drama") {
-      const dramaData = data.filter((el) => el.genre === "drama");
+    if (genre === "드라마") {
+      const dramaData = data.filter((el) => el.genre === "드라마");
       await setGenreData(dramaData);
       console.log(genre);
-      navigate("?genre=drama");
-    } else if (genre === "movie") {
-      const movieData = data.filter((el) => el.genre === "movie");
+      navigate("?genre=드라마");
+    } else if (genre === "영화") {
+      const movieData = data.filter((el) => el.genre === "영화");
       await setGenreData(movieData);
-      navigate("?genre=movie");
-    } else if (genre === "book") {
-      const bookData = data.filter((el) => el.genre === "book");
+      navigate("?genre=영화");
+    } else if (genre === "책") {
+      const bookData = data.filter((el) => el.genre === "책");
       await setGenreData(bookData);
-      navigate("?genre=book");
+      navigate("?genre=책");
     } else {
       await setGenreData(data);
       navigate("/");
@@ -44,21 +44,21 @@ function MainList({ data }) {
         </MenuTab>
         <MenuTab
           onClick={() => {
-            tabChangeHandler("drama");
+            tabChangeHandler("드라마");
           }}
         >
           드라마
         </MenuTab>
         <MenuTab
           onClick={() => {
-            tabChangeHandler("movie");
+            tabChangeHandler("영화");
           }}
         >
           영화
         </MenuTab>
         <MenuTab
           onClick={() => {
-            tabChangeHandler("book");
+            tabChangeHandler("책");
           }}
         >
           책

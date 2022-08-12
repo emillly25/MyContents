@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 function ContentListItem({ title, genre }) {
   const navigate = useNavigate();
   const createLabel = (genre) => {
-    if (genre === "drama") {
+    if (genre === "드라마") {
       return "pink";
-    } else if (genre === "movie") {
+    } else if (genre === "영화") {
       return "blue";
     } else {
       return "yellow";
