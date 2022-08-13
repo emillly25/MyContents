@@ -29,7 +29,7 @@ function Detail({ data, onDelete }) {
           <FontAwesomeIcon
             icon={faPencil}
             onClick={() => {
-              console.log(foundData);
+              navigate(`/update/${foundData.title}`);
             }}
           />
         </div>

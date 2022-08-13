@@ -1,4 +1,5 @@
 import CreateList from "./pages/CreateList";
+import UpdateList from "./pages/UpdateList";
 import MainList from "./pages/MainList";
 import Detail from "./pages/Detail";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -22,8 +23,15 @@ function App() {
   const onDelete = (id) => {
     const filteredArr = data.filter((el) => el.id !== id);
     setData(filteredArr);
-    console.log(`삭제되었습니다 ${id}번째`);
   };
+
+  const onUpdate = (obj) => {
+    const updatedArr = data.map((el) => {
+      return el.id === obj.id ? obj : el;
+    });
+    setData(updatedArr);
+  };
+
   return (
     <>
       <BrowserRouter>
@@ -34,6 +42,10 @@ function App() {
             element={<Detail data={data} onDelete={onDelete} />}
           />
           <Route path="/create" element={<CreateList onCreate={onCreate} />} />
+          <Route
+            path="/update/:title"
+            element={<UpdateList onUpdate={onUpdate} data={data} />}
+          />
         </Routes>
       </BrowserRouter>
     </>
