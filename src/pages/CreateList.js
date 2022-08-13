@@ -18,7 +18,6 @@ import dayjs from "dayjs";
 function CreateList({ onCreate }) {
   const navigate = useNavigate();
   const [value, setValue] = useState({
-    id: 0,
     title: "",
     genre: "",
     rating: 0,
