@@ -67,11 +67,7 @@ function MainList({ data }) {
       <ListBox>
         {genreData.map((el) => {
           return (
-            <ContentListItem
-              key={Math.random()}
-              genre={el.genre}
-              title={el.title}
-            />
+            <ContentListItem key={el.id} genre={el.genre} title={el.title} />
           );
         })}
       </ListBox>

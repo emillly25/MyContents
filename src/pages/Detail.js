@@ -8,7 +8,7 @@ import {
   faTrash,
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
-function Detail({ data }) {
+function Detail({ data, onDelete }) {
   const { title } = useParams();
   const navigate = useNavigate();
   const foundData = data.find((el) => el.title === title);
@@ -34,7 +34,15 @@ function Detail({ data }) {
           />
         </div>
         <div className="delete">
-          <FontAwesomeIcon icon={faTrash} />
+          <FontAwesomeIcon
+            icon={faTrash}
+            onClick={() => {
+              if (window.confirm("삭제하시겠습니까?")) {
+                onDelete(foundData.id);
+                navigate("/");
+              }
+            }}
+          />
         </div>
       </IconBox>
       <TitleBox>

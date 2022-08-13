@@ -18,12 +18,21 @@ function App() {
       return newArr;
     });
   };
+
+  const onDelete = (id) => {
+    const filteredArr = data.filter((el) => el.id !== id);
+    setData(filteredArr);
+    console.log(`삭제되었습니다 ${id}번째`);
+  };
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainList data={data} />} />
-          <Route path="/detail/:title" element={<Detail data={data} />} />
+          <Route
+            path="/detail/:title"
+            element={<Detail data={data} onDelete={onDelete} />}
+          />
           <Route path="/create" element={<CreateList onCreate={onCreate} />} />
         </Routes>
       </BrowserRouter>
