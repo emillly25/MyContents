@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import * as S from "../style/DetailStyle";
 import { useParams, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import Rating from "@mui/material/Rating";
@@ -14,9 +14,9 @@ function Detail({ data, onDelete }) {
   const foundData = data.find((el) => el.title === title);
 
   return (
-    <MobileContainer>
+    <S.MobileContainer>
       <Logo />
-      <IconBox>
+      <S.IconBox>
         <div
           className="back"
           onClick={() => {
@@ -44,127 +44,36 @@ function Detail({ data, onDelete }) {
             }}
           />
         </div>
-      </IconBox>
-      <TitleBox>
-        <IndexText>제목:</IndexText>
+      </S.IconBox>
+      <S.TitleBox>
+        <S.IndexText>제목:</S.IndexText>
         <h2>{foundData.title}</h2>
-      </TitleBox>
-      <SubBox>
+      </S.TitleBox>
+      <S.SubBox>
         <div>
-          <IndexText>장르:</IndexText>
-          <SubText>{foundData.genre}</SubText>
+          <S.IndexText>장르:</S.IndexText>
+          <S.SubText>{foundData.genre}</S.SubText>
         </div>
         <div>
-          <IndexText>날짜:</IndexText>
-          <SubText>{foundData.date}</SubText>
+          <S.IndexText>날짜:</S.IndexText>
+          <S.SubText>{foundData.date}</S.SubText>
         </div>
-      </SubBox>
+      </S.SubBox>
 
-      <ContentContainer>
-        <ContentIndexText>MEMO</ContentIndexText>
-        <ContentBox>{foundData.memo}</ContentBox>
-      </ContentContainer>
-      <RatingBox>
+      <S.ContentContainer>
+        <S.ContentIndexText>MEMO</S.ContentIndexText>
+        <S.ContentBox>{foundData.memo}</S.ContentBox>
+      </S.ContentContainer>
+      <S.RatingBox>
         <Rating
           name="read-only"
           value={foundData.rating}
           readOnly
           style={{ fontSize: "45px" }}
         />
-      </RatingBox>
-    </MobileContainer>
+      </S.RatingBox>
+    </S.MobileContainer>
   );
 }
-
-const MobileContainer = styled.div`
-  border: 1px solid black;
-  min-width: 380px;
-  max-width: 430px;
-  margin: 0 auto;
-`;
-
-const IconBox = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  font-size: 22px;
-  .back {
-    cursor: pointer;
-    margin-right: 8px;
-  }
-
-  .modify {
-    margin-right: 8px;
-    cursor: pointer;
-  }
-
-  .delete {
-    cursor: pointer;
-    margin-right: 15px;
-  }
-`;
-
-const TitleBox = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-`;
-
-const IndexText = styled.div`
-  font-size: 18px;
-  margin: 0 20px 0 50px;
-`;
-
-const SubBox = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-
-  div {
-    display: flex;
-    align-items: center;
-  }
-`;
-const SubText = styled.p`
-  font-size: 18px;
-`;
-
-const ContentContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform: translateY(-20px);
-`;
-
-const ContentIndexText = styled.p`
-  font-size: 22px;
-  text-align: center;
-  width: 80px;
-  padding: 5px;
-  font-weight: bold;
-  margin-bottom: -15px;
-  z-index: 1;
-  background-color: white;
-  border-radius: 10px;
-`;
-
-const ContentBox = styled.div`
-  box-sizing: border-box;
-  width: 80%;
-  border-radius: 20px;
-  border: 3px solid black;
-  min-height: 400px;
-  padding: 20px;
-  line-height: 25px;
-`;
-
-const RatingBox = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 7px 0;
-  margin-bottom: 20px;
-`;
 
 export default Detail;

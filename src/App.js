@@ -5,7 +5,6 @@ import Detail from "./pages/Detail";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HelmetComponent from "./components/HelmetComponent";
 import { useState, useRef } from "react";
-import { DesktopDatePicker } from "@mui/x-date-pickers";
 
 function App() {
   const [data, setData] = useState([]);

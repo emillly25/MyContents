@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import * as S from "../style/CreateListStyle";
 import Logo from "../components/Logo";
 import {
   TextField,
@@ -30,9 +30,9 @@ function UpdateList({ onUpdate, data }) {
   const navigate = useNavigate();
 
   return (
-    <MobileContainer>
+    <S.MobileContainer>
       <Logo />
-      <CreateContent>
+      <S.CreateContent>
         <TextField
           id="outlined"
           label="제목"
@@ -51,7 +51,7 @@ function UpdateList({ onUpdate, data }) {
             margin: "20px auto ",
           }}
         />
-        <SubBox>
+        <S.SubBox>
           <FormControl style={{ width: "150px" }}>
             <InputLabel id="demo-simple-select-label">장르</InputLabel>
             <Select
@@ -72,7 +72,7 @@ function UpdateList({ onUpdate, data }) {
               <MenuItem value={"책"}>책</MenuItem>
             </Select>
           </FormControl>
-          <DateBox>
+          <S.DateBox>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <MobileDatePicker
                 label="날짜"
@@ -84,8 +84,8 @@ function UpdateList({ onUpdate, data }) {
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
-          </DateBox>
-        </SubBox>
+          </S.DateBox>
+        </S.SubBox>
         <TextField
           id="outlined-multiline-flexible"
           label="나만의 감상평 남기기"
@@ -105,7 +105,7 @@ function UpdateList({ onUpdate, data }) {
             marginBottom: "10px",
           }}
         />
-        <RatingBox>
+        <S.RatingBox>
           <Rating
             name="rating"
             value={value.rating}
@@ -117,10 +117,10 @@ function UpdateList({ onUpdate, data }) {
             }}
             style={{ fontSize: "45px" }}
           />
-        </RatingBox>
-      </CreateContent>
-      <ButtonBox>
-        <SubmitBtn
+        </S.RatingBox>
+      </S.CreateContent>
+      <S.ButtonBox>
+        <S.SubmitBtn
           type="submit"
           onClick={(e) => {
             e.preventDefault();
@@ -135,59 +135,10 @@ function UpdateList({ onUpdate, data }) {
           }}
         >
           수정하기
-        </SubmitBtn>
-      </ButtonBox>
-    </MobileContainer>
+        </S.SubmitBtn>
+      </S.ButtonBox>
+    </S.MobileContainer>
   );
 }
-
-const MobileContainer = styled.div`
-  border: 1px solid black;
-  min-width: 380px;
-  max-width: 430px;
-  margin: 0 auto;
-`;
-
-const CreateContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 15px;
-  align-items: flex-start;
-`;
-
-const SubBox = styled.div`
-  width: 350px;
-  display: flex;
-  justify-content: space-between;
-  margin: 10px auto;
-`;
-const DateBox = styled.div`
-  width: 150px;
-`;
-
-const RatingBox = styled.div`
-  display: flex;
-  align-items: center;
-  align-self: center;
-  margin-bottom: 20px;
-`;
-
-const ButtonBox = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-top: 10px;
-  padding-bottom: 30px;
-`;
-const SubmitBtn = styled.button`
-  width: 350px;
-  height: 50px;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: black;
-  color: white;
-  cursor: pointer;
-`;
 
 export default UpdateList;
