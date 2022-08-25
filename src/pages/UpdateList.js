@@ -1,4 +1,5 @@
 import * as S from "../style/CreateListStyle";
+import axios from "axios";
 import Logo from "../components/Logo";
 import {
   TextField,
@@ -28,6 +29,10 @@ function UpdateList({ onUpdate, data }) {
   const [date, setDate] = useState(foundData.date);
 
   const navigate = useNavigate();
+
+  const updateList = async (id, obj) => {
+    await axios.patch(`http://localhost:3004/contents/${id}`, obj);
+  };
 
   return (
     <S.MobileContainer>
@@ -129,6 +134,7 @@ function UpdateList({ onUpdate, data }) {
                 ...value,
                 date: dayjs(date).format("YYYY-MM-DD"),
               };
+              updateList(value.id, newObj);
               onUpdate(newObj);
               navigate("/");
             }

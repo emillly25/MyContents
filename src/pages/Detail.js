@@ -15,7 +15,7 @@ function Detail({ data, onDelete }) {
   const foundData = data.find((el) => el.title === title);
 
   const deleteList = async (id) => {
-    const res = await axios.delete(`http://localhost:3004/contents/${id}`);
+    await axios.delete(`http://localhost:3004/contents/${id}`);
   };
 
   return (

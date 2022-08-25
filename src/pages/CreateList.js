@@ -44,8 +44,7 @@ function CreateList({ onCreate }) {
     });
   };
   const postList = async (obj) => {
-    const res = await axios.post("http://localhost:3004/contents", obj);
-    console.log("post data", res.data);
+    await axios.post("http://localhost:3004/contents", obj);
   };
 
   return (

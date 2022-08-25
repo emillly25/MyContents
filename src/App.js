@@ -16,8 +16,6 @@ function App() {
     getList();
   }, []);
 
-  //db의 데이터가 바뀔때마다 data를 바꿔줘야..
-
   const getList = async () => {
     const res = await axios.get("http://localhost:3004/contents");
     setData(res.data);
