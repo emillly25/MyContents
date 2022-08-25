@@ -47,6 +47,31 @@ function CreateList({ onCreate }) {
     await axios.post("http://localhost:3004/contents", obj);
   };
 
+  const formValidation = () => {
+    if (value.title.length === 0) {
+      return alert("제목을 입력해주세요");
+    }
+    if (value.genre.length === 0) {
+      return alert("장르를 입력해주세요");
+    }
+    if (!date) {
+      return alert("날짜를 입력해주세요");
+    }
+    if (value.memo.length === 0) {
+      return alert("내용을 입력해주세요");
+    }
+    if (value.rating === 0) {
+      return alert("평점을 입력해주세요");
+    }
+    const obj = {
+      ...value,
+      date: dayjs(date).format("YYYY-MM-DD"),
+    };
+    onCreate(obj);
+    postList(obj);
+    navigate("/");
+  };
+
   return (
     <S.MobileContainer>
       <Logo />
@@ -120,13 +145,7 @@ function CreateList({ onCreate }) {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            const obj = {
-              ...value,
-              date: dayjs(date).format("YYYY-MM-DD"),
-            };
-            onCreate(obj);
-            postList(obj);
-            navigate("/");
+            formValidation();
           }}
         >
           저장

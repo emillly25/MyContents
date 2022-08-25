@@ -15,7 +15,6 @@ function App() {
   useEffect(() => {
     getList();
   }, []);
-
   const getList = async () => {
     const res = await axios.get("http://localhost:3004/contents");
     setData(res.data);
