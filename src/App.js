@@ -2,13 +2,24 @@ import CreateList from "./pages/CreateList";
 import UpdateList from "./pages/UpdateList";
 import MainList from "./pages/MainList";
 import Detail from "./pages/Detail";
+import axios from "axios";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HelmetComponent from "./components/HelmetComponent";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function App() {
   const [data, setData] = useState([]);
   const dataId = useRef(0);
+
+  useEffect(() => {
+    getList();
+  }, []);
+
+  const getList = async () => {
+    const res = await axios.get("http://localhost:3004/contents");
+    setData(res.data);
+    console.log(res.data);
+  };
 
   const onCreate = (data) => {
     setData((cur) => {

@@ -1,13 +1,14 @@
 import Logo from "../components/Logo";
 import ContentListItem from "../components/ContentListItem";
+import axios from "axios";
 import * as S from "../style/MainListStyle";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function MainList({ data }) {
   const navigate = useNavigate();
 
-  const [genreData, setGenreData] = useState(data);
+  const [genreData, setGenreData] = useState([]);
 
   const tabChangeHandler = async (genre) => {
     if (genre === "드라마") {
@@ -63,11 +64,25 @@ function MainList({ data }) {
         </S.MenuTab>
       </S.MenuNav>
       <S.ListBox>
-        {genreData.map((el) => {
-          return (
-            <ContentListItem key={el.id} genre={el.genre} title={el.title} />
-          );
-        })}
+        {genreData.length === 0
+          ? data.map((el) => {
+              return (
+                <ContentListItem
+                  key={el.id}
+                  genre={el.genre}
+                  title={el.title}
+                />
+              );
+            })
+          : genreData.map((el) => {
+              return (
+                <ContentListItem
+                  key={el.id}
+                  genre={el.genre}
+                  title={el.title}
+                />
+              );
+            })}
       </S.ListBox>
       <S.ButtonBox>
         <S.AddBtn

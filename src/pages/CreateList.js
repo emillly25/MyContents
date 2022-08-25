@@ -1,5 +1,6 @@
 import * as S from "../style/CreateListStyle";
 import Logo from "../components/Logo";
+import axios from "axios";
 import {
   TextField,
   Select,
@@ -42,6 +43,11 @@ function CreateList({ onCreate }) {
       return newValue;
     });
   };
+  const postList = async (obj) => {
+    const res = await axios.post("http://localhost:3004/contents", obj);
+    console.log(res);
+  };
+
   return (
     <S.MobileContainer>
       <Logo />
@@ -120,7 +126,7 @@ function CreateList({ onCreate }) {
               date: dayjs(date).format("YYYY-MM-DD"),
             };
             onCreate(obj);
-
+            postList(obj);
             navigate("/");
           }}
         >
