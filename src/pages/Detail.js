@@ -8,10 +8,15 @@ import {
   faTrash,
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 function Detail({ data, onDelete }) {
   const { title } = useParams();
   const navigate = useNavigate();
   const foundData = data.find((el) => el.title === title);
+
+  const deleteList = async (id) => {
+    const res = await axios.delete(`http://localhost:3004/contents/${id}`);
+  };
 
   return (
     <S.MobileContainer>
@@ -38,6 +43,7 @@ function Detail({ data, onDelete }) {
             icon={faTrash}
             onClick={() => {
               if (window.confirm("삭제하시겠습니까?")) {
+                deleteList(foundData.id);
                 onDelete(foundData.id);
                 navigate("/");
               }
