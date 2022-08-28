@@ -69,7 +69,7 @@ function CreateList({ onCreate }) {
     };
     onCreate(obj);
     postList(obj);
-    navigate("/");
+    navigate(`/detail/${value.title}`);
   };
 
   return (

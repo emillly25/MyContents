@@ -136,7 +136,7 @@ function UpdateList({ onUpdate, data }) {
               };
               updateList(value.id, newObj);
               onUpdate(newObj);
-              navigate("/");
+              navigate(`/detail/${value.title}`);
             }
           }}
         >
