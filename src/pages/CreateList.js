@@ -63,10 +63,12 @@ function CreateList({ onCreate }) {
     if (value.rating === 0) {
       return alert("평점을 입력해주세요");
     }
+
     const obj = {
       ...value,
       date: dayjs(date).format("YYYY-MM-DD"),
     };
+
     onCreate(obj);
     postList(obj);
     navigate(`/detail/${value.title}`);

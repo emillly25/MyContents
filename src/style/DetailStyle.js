@@ -82,6 +82,7 @@ export const ContentBox = styled.div`
   min-height: 400px;
   padding: 20px;
   line-height: 25px;
+  white-space: pre-wrap;
 `;
 
 export const RatingBox = styled.div`
