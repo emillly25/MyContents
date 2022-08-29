@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 export const MobileContainer = styled.div`
-  ${({ theme }) => theme.layout.mobileContainer}
+  border: 1px solid black;
+  min-width: 380px;
+  max-width: 430px;
+  margin: 0 auto;
 `;
 
 export const MenuNav = styled.div`
