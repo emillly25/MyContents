@@ -31,7 +31,11 @@ function UpdateList({ onUpdate, data }) {
   const navigate = useNavigate();
 
   const updateList = async (id, obj) => {
-    await axios.patch(`http://localhost:3004/contents/${id}`, obj);
+    try {
+      await axios.patch(`http://localhost:3004/contents/${id}`, obj);
+    } catch (err) {
+      throw new Error("데이터를 수정 할 수 없습니다.");
+    }
   };
 
   return (

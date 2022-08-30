@@ -2,9 +2,9 @@ import CreateList from "./pages/CreateList";
 import UpdateList from "./pages/UpdateList";
 import MainList from "./pages/MainList";
 import Detail from "./pages/Detail";
+import NotFonud from "./pages/NotFound";
 import axios from "axios";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HelmetComponent from "./components/HelmetComponent";
 import { useState, useRef, useEffect } from "react";
 
 function App() {
@@ -16,8 +16,12 @@ function App() {
     getList();
   }, []);
   const getList = async () => {
-    const res = await axios.get("http://localhost:3004/contents");
-    setData(res.data);
+    try {
+      const res = await axios.get("http://localhost:3004/contents");
+      setData(res.data);
+    } catch (err) {
+      throw new Error("데이터를 불러올 수 없습니다.");
+    }
   };
 
   const onCreate = (data) => {
@@ -55,6 +59,7 @@ function App() {
             path="/update/:title"
             element={<UpdateList onUpdate={onUpdate} data={data} />}
           />
+          <Route path="*" element={<NotFonud />} />
         </Routes>
       </BrowserRouter>
     </>

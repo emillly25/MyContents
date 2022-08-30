@@ -44,7 +44,11 @@ function CreateList({ onCreate }) {
     });
   };
   const postList = async (obj) => {
-    await axios.post("http://localhost:3004/contents", obj);
+    try {
+      await axios.post("http://localhost:3004/contents", obj);
+    } catch (err) {
+      throw new Error("데이터를 전송할 수 없습니다.");
+    }
   };
 
   const formValidation = () => {

@@ -15,7 +15,11 @@ function Detail({ data, onDelete }) {
   const foundData = data.find((el) => el.title === title);
 
   const deleteList = async (id) => {
-    await axios.delete(`http://localhost:3004/contents/${id}`);
+    try {
+      await axios.delete(`http://localhost:3004/contents/${id}`);
+    } catch (err) {
+      throw new Error("데이터를 삭제할 수 없습니다.");
+    }
   };
 
   return (
