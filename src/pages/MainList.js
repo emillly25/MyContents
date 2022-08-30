@@ -3,12 +3,13 @@ import ContentListItem from "../components/ContentListItem";
 import Loading from "../components/Loading";
 import * as S from "../style/MainListStyle";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function MainList({ data, loading }) {
   const navigate = useNavigate();
 
   const [genreData, setGenreData] = useState([]);
+  const [isScroll, setIsScroll] = useState(false);
 
   const tabChangeHandler = async (genre) => {
     if (genre === "드라마") {
@@ -62,7 +63,15 @@ function MainList({ data, loading }) {
           책
         </S.MenuTab>
       </S.MenuNav>
-      <S.ListBox>
+      <S.ListBox
+        onScroll={(e) => {
+          setIsScroll(true);
+          if (e.target.scrollTop === 0) {
+            setIsScroll(false);
+          }
+        }}
+        isScroll={isScroll}
+      >
         {loading ? (
           <Loading />
         ) : genreData.length === 0 ? (

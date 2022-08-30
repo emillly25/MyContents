@@ -37,6 +37,20 @@ export const ListBox = styled.ul`
   margin-bottom: 40px;
   min-height: 500px;
   max-height: 600px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  ::-webkit-scrollbar {
+    width: ${({ isScroll }) => (isScroll ? "6px" : "0")};
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 15px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 15px;
+  }
 `;
 
 export const ButtonBox = styled.div`
