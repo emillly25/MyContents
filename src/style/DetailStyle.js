@@ -16,6 +16,7 @@ export const IconBox = styled.div`
 
   div {
     position: absolute;
+    top: 15px;
     right: 50px;
   }
 `;
@@ -32,9 +33,15 @@ export const TitleBox = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+
+  h2 {
+    width: 250px;
+    line-height: 20px;
+  }
 `;
 
 export const IndexText = styled.div`
+  width: 40px;
   font-size: 18px;
   margin: 0 20px 0 50px;
 `;

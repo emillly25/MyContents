@@ -44,8 +44,11 @@ const Label = styled.div`
 `;
 
 const Title = styled.h2`
+  width: 100%;
+  padding-right: 5px;
   font-size: 18px;
   margin: 0;
+  line-height: 20px; ;
 `;
 
 export default ContentListItem;

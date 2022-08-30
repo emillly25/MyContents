@@ -1,14 +1,6 @@
 {
   "contents": [
     {
-      "title": "드라마1",
-      "genre": "드라마",
-      "rating": 4,
-      "memo": "감상평 ",
-      "date": "2022-08-16",
-      "id": 3
-    },
-    {
       "title": "유효성검사중",
       "genre": "영화",
       "rating": 3,
