@@ -29,7 +29,6 @@ const List = styled.li`
   list-style: none;
   padding: 20px;
   width: 100%;
-  /* border: 2px solid green; */
   display: flex;
   align-items: center;
   margin-left: 20px;

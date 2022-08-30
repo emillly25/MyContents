@@ -1,11 +1,11 @@
 import Logo from "../components/Logo";
 import ContentListItem from "../components/ContentListItem";
-import axios from "axios";
+import Loading from "../components/Loading";
 import * as S from "../style/MainListStyle";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-function MainList({ data }) {
+function MainList({ data, loading }) {
   const navigate = useNavigate();
 
   const [genreData, setGenreData] = useState([]);
@@ -14,7 +14,6 @@ function MainList({ data }) {
     if (genre === "드라마") {
       const dramaData = data.filter((el) => el.genre === "드라마");
       await setGenreData(dramaData);
-      console.log(genre);
       navigate("?genre=드라마");
     } else if (genre === "영화") {
       const movieData = data.filter((el) => el.genre === "영화");
@@ -64,25 +63,21 @@ function MainList({ data }) {
         </S.MenuTab>
       </S.MenuNav>
       <S.ListBox>
-        {genreData.length === 0
-          ? data.map((el) => {
-              return (
-                <ContentListItem
-                  key={el.id}
-                  genre={el.genre}
-                  title={el.title}
-                />
-              );
-            })
-          : genreData.map((el) => {
-              return (
-                <ContentListItem
-                  key={el.id}
-                  genre={el.genre}
-                  title={el.title}
-                />
-              );
-            })}
+        {loading ? (
+          <Loading />
+        ) : genreData.length === 0 ? (
+          data.map((el) => {
+            return (
+              <ContentListItem key={el.id} genre={el.genre} title={el.title} />
+            );
+          })
+        ) : (
+          genreData.map((el) => {
+            return (
+              <ContentListItem key={el.id} genre={el.genre} title={el.title} />
+            );
+          })
+        )}
       </S.ListBox>
       <S.ButtonBox>
         <S.AddBtn
