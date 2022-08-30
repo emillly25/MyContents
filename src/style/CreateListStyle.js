@@ -1,10 +1,19 @@
 import styled from "styled-components";
 
 export const MobileContainer = styled.div`
+  position: relative;
   border: 1px solid black;
   min-width: 380px;
   max-width: 430px;
   margin: 0 auto;
+`;
+
+export const BackBtnBox = styled.a`
+  cursor: pointer;
+  font-size: 36px;
+  position: absolute;
+  left: 15px;
+  top: 7px;
 `;
 
 export const CreateContent = styled.div`

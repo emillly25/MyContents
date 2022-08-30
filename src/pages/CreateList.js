@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { MobileDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -80,6 +82,13 @@ function CreateList({ onCreate }) {
 
   return (
     <S.MobileContainer>
+      <S.BackBtnBox
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </S.BackBtnBox>
       <Logo />
       <S.CreateContent>
         <TextField

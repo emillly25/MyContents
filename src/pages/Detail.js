@@ -1,15 +1,20 @@
 import * as S from "../style/DetailStyle";
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import Rating from "@mui/material/Rating";
+import UpdateDeleteModal from "../components/UpdateDeleteModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPencil,
   faTrash,
   faArrowLeft,
+  faEllipsisVertical,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+
 function Detail({ data, onDelete }) {
+  const [isModal, setIsModal] = useState(false);
   const { title } = useParams();
   const navigate = useNavigate();
   const foundData = data.find((el) => el.title === title);
@@ -22,39 +27,41 @@ function Detail({ data, onDelete }) {
     }
   };
 
+  function del(id) {
+    if (window.confirm("삭제하시겠습니까?")) {
+      deleteList(id);
+      onDelete(id);
+      navigate("/");
+    }
+  }
+
   return (
     <S.MobileContainer>
+      <S.BackBtnBox
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </S.BackBtnBox>
       <Logo />
-      <S.IconBox>
-        <div
-          className="back"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </div>
-        <div className="modify">
-          <FontAwesomeIcon
-            icon={faPencil}
-            onClick={() => {
-              navigate(`/update/${foundData.title}`);
-            }}
-          />
-        </div>
-        <div className="delete">
-          <FontAwesomeIcon
-            icon={faTrash}
-            onClick={() => {
-              if (window.confirm("삭제하시겠습니까?")) {
-                deleteList(foundData.id);
-                onDelete(foundData.id);
-                navigate("/");
-              }
-            }}
-          />
+      <S.IconBox
+        onClick={() => {
+          setIsModal(true);
+        }}
+      >
+        <div>
+          <FontAwesomeIcon icon={faEllipsisVertical} />
         </div>
       </S.IconBox>
+      {isModal && (
+        <UpdateDeleteModal
+          setIsModal={setIsModal}
+          title={foundData.title}
+          id={foundData.id}
+          del={del}
+        />
+      )}
       <S.TitleBox>
         <S.IndexText>제목:</S.IndexText>
         <h2>{foundData.title}</h2>

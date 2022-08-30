@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const MobileContainer = styled.div`
+  position: relative;
   border: 1px solid black;
   min-width: 380px;
   max-width: 430px;
@@ -9,23 +10,22 @@ export const MobileContainer = styled.div`
 
 export const IconBox = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  font-size: 22px;
-  .back {
-    cursor: pointer;
-    margin-right: 8px;
-  }
+  position: relative;
+  cursor: pointer;
+  font-size: 30px;
 
-  .modify {
-    margin-right: 8px;
-    cursor: pointer;
+  div {
+    position: absolute;
+    right: 50px;
   }
+`;
 
-  .delete {
-    cursor: pointer;
-    margin-right: 15px;
-  }
+export const BackBtnBox = styled.a`
+  cursor: pointer;
+  font-size: 36px;
+  position: absolute;
+  left: 15px;
+  top: 7px;
 `;
 
 export const TitleBox = styled.div`
