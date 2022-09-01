@@ -7,6 +7,9 @@ class ContentModel {
   async findAllContent() {
     return await Content.find({});
   }
+  async create(data) {
+    return await Content.create(data);
+  }
 }
 
 const contentModel = new ContentModel();

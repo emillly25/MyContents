@@ -1,15 +1,25 @@
 import { contentModel } from "../db/index";
 
-class contentController {
-  async getAllInfo(req, res) {
+const contentController = {
+  // async getAllInfo(req, res) {
+  //   try {
+  //     const data = req.body
+  //     const newData = await contentModel.findAllContent();
+  //     res.status(200).json(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // },
+  async createContent(req, res) {
     try {
-      const body = req.body;
-      const newContent = await contentModel.findAllContent();
-      res.status(200).json(body);
+      const data = req.body;
+      console.log("data", data);
+      await contentModel.create(data);
+      res.status(200).json(data);
     } catch (error) {
       console.error(error);
     }
-  }
-}
+  },
+};
 
 export { contentController };

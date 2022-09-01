@@ -1,6 +1,6 @@
 import * as S from "../style/CreateListStyle";
 import Logo from "../components/Logo";
-import axios from "axios";
+import * as api from "../api";
 import {
   TextField,
   Select,
@@ -47,7 +47,8 @@ function CreateList({ onCreate }) {
   };
   const postList = async (obj) => {
     try {
-      await axios.post("http://localhost:3004/contents", obj);
+      const res = await api.post("/api/content/create", obj);
+      console.log("post응답", res);
     } catch (err) {
       throw new Error("데이터를 전송할 수 없습니다.");
     }
@@ -75,9 +76,9 @@ function CreateList({ onCreate }) {
       date: dayjs(date).format("YYYY-MM-DD"),
     };
 
-    onCreate(obj);
+    // onCreate(obj);
     postList(obj);
-    navigate(`/detail/${value.title}`);
+    // navigate(`/detail/${value.title}`);
   };
 
   return (

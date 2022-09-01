@@ -19,5 +19,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", contentRouter);
+app.use("/api/content", contentRouter);
 
 export { app };
