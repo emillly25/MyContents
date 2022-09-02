@@ -16,7 +16,7 @@ function UpdateDeleteModal({ setIsModal, title, id, del }) {
         <div
           className="modify"
           onClick={() => {
-            navigate(`/update/${title}`);
+            navigate(`/update/${id}`);
           }}
         >
           <FontAwesomeIcon icon={faPencil} />

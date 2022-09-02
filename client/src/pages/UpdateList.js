@@ -17,12 +17,13 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
+import * as api from "../api";
 
 function UpdateList({ onUpdate, data }) {
-  const { title } = useParams();
-  const foundData = data.find((el) => el.title === title);
+  const { id } = useParams();
+  const foundData = data.find((el) => el._id === id);
   const [value, setValue] = useState({
-    id: foundData.id,
+    _id: foundData._id,
     title: foundData.title,
     genre: foundData.genre,
     memo: foundData.memo,
@@ -32,9 +33,11 @@ function UpdateList({ onUpdate, data }) {
 
   const navigate = useNavigate();
 
-  const updateList = async (id, obj) => {
+  const updateList = async (obj) => {
     try {
-      await axios.patch(`http://localhost:3004/contents/${id}`, obj);
+      await api.patch(`/api/content/${id}`, obj);
+      onUpdate(obj);
+      navigate("/");
     } catch (err) {
       throw new Error("데이터를 수정 할 수 없습니다.");
     }
@@ -44,7 +47,7 @@ function UpdateList({ onUpdate, data }) {
     <S.MobileContainer>
       <S.BackBtnBox
         onClick={() => {
-          navigate(`/detail/${foundData.title}`);
+          navigate(`/detail/${id}`);
         }}
       >
         <FontAwesomeIcon icon={faArrowLeft} />
@@ -147,9 +150,8 @@ function UpdateList({ onUpdate, data }) {
                 ...value,
                 date: dayjs(date).format("YYYY-MM-DD"),
               };
-              updateList(value.id, newObj);
-              onUpdate(newObj);
-              navigate(`/detail/${value.title}`);
+              console.log("수정obj", newObj);
+              updateList(newObj);
             }
           }}
         >

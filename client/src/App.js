@@ -43,7 +43,7 @@ function App() {
 
   const onUpdate = (obj) => {
     const updatedArr = data.map((el) => {
-      return el.id === obj.id ? obj : el;
+      return el._id === obj.id ? obj : el;
     });
     setData(updatedArr);
   };
@@ -58,11 +58,13 @@ function App() {
           />
           <Route
             path="/detail/:id"
-            element={<Detail data={data} onDelete={onDelete} />}
+            element={
+              <Detail data={data} onDelete={onDelete} loading={loading} />
+            }
           />
           <Route path="/create" element={<CreateList onCreate={onCreate} />} />
           <Route
-            path="/update/:title"
+            path="/update/:id"
             element={<UpdateList onUpdate={onUpdate} data={data} />}
           />
           <Route path="*" element={<NotFonud />} />

@@ -28,6 +28,16 @@ const contentController = {
       console.error(error);
     }
   },
+  async updateContent(req, res) {
+    try {
+      const id = req.params.id;
+      const content = req.body;
+      const result = await contentModel.updateOne(id, content);
+      res.status(200).json(result);
+    } catch (error) {
+      console.error(error);
+    }
+  },
 };
 
 export { contentController };

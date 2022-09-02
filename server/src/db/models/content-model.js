@@ -14,6 +14,9 @@ class ContentModel {
   async deleteOne(id) {
     return await Content.deleteOne({ _id: id });
   }
+  async updateOne(id, content) {
+    return await Content.updateOne({ _id: id }, { ...content });
+  }
 }
 
 const contentModel = new ContentModel();
