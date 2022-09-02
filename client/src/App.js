@@ -21,7 +21,7 @@ function App() {
   const getList = async () => {
     setLoading(true);
     try {
-      const res = await api.get("/api/content/get");
+      const res = await api.get("/api/content");
       setData(res.data);
       setLoading(false);
     } catch (err) {
@@ -43,8 +43,9 @@ function App() {
 
   const onUpdate = (obj) => {
     const updatedArr = data.map((el) => {
-      return el._id === obj.id ? obj : el;
+      return el._id === obj._id ? obj : el;
     });
+    console.log("updateArr", updatedArr);
     setData(updatedArr);
   };
 
@@ -62,10 +63,15 @@ function App() {
               <Detail data={data} onDelete={onDelete} loading={loading} />
             }
           />
-          <Route path="/create" element={<CreateList onCreate={onCreate} />} />
+          <Route
+            path="/create"
+            element={<CreateList onCreate={onCreate} loading={loading} />}
+          />
           <Route
             path="/update/:id"
-            element={<UpdateList onUpdate={onUpdate} data={data} />}
+            element={
+              <UpdateList onUpdate={onUpdate} data={data} loading={loading} />
+            }
           />
           <Route path="*" element={<NotFonud />} />
         </Routes>
