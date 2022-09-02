@@ -4,6 +4,7 @@ import MainList from "./pages/MainList";
 import Detail from "./pages/Detail";
 import NotFonud from "./pages/NotFound";
 import axios from "axios";
+import * as api from "./api";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 
@@ -19,7 +20,8 @@ function App() {
   const getList = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:3004/contents");
+      const res = await api.get("/api/content/get");
+      console.log("get", res);
       setData(res.data);
       setLoading(false);
     } catch (err) {

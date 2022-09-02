@@ -4,8 +4,8 @@ import { ContentSchema } from "../schemas/contentSchema";
 const Content = model("contents", ContentSchema);
 
 class ContentModel {
-  async findAllContent() {
-    return await Content.find({});
+  async findAll() {
+    return await Content.find();
   }
   async create(data) {
     return await Content.create(data);
