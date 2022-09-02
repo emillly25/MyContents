@@ -77,13 +77,23 @@ function MainList({ data, loading }) {
         ) : genreData.length === 0 ? (
           data.map((el) => {
             return (
-              <ContentListItem key={el.id} genre={el.genre} title={el.title} />
+              <ContentListItem
+                key={el._id}
+                genre={el.genre}
+                id={el._id}
+                title={el.title}
+              />
             );
           })
         ) : (
           genreData.map((el) => {
             return (
-              <ContentListItem key={el.id} genre={el.genre} title={el.title} />
+              <ContentListItem
+                key={el._id}
+                genre={el.genre}
+                id={el._id}
+                title={el.title}
+              />
             );
           })
         )}

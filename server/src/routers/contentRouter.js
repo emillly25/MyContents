@@ -5,5 +5,6 @@ const contentRouter = Router();
 
 contentRouter.get("/get", contentController.getAllInfo);
 contentRouter.post("/create", contentController.createContent);
+contentRouter.delete("/:id", contentController.deleteContent);
 
 export { contentRouter };

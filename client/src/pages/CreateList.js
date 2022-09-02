@@ -48,6 +48,7 @@ function CreateList({ onCreate }) {
   const postList = async (obj) => {
     try {
       const res = await api.post("/api/content/create", obj);
+      onCreate(res.data);
       console.log("post응답", res);
     } catch (err) {
       throw new Error("데이터를 전송할 수 없습니다.");
@@ -76,9 +77,8 @@ function CreateList({ onCreate }) {
       date: dayjs(date).format("YYYY-MM-DD"),
     };
 
-    // onCreate(obj);
-    postList(obj);
-    // navigate(`/detail/${value.title}`);
+    postList(obj); //DB로 POST
+    navigate("/");
   };
 
   return (

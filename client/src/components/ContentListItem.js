@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-function ContentListItem({ title, genre }) {
+function ContentListItem({ id, genre, title }) {
   const navigate = useNavigate();
   const createLabel = (genre) => {
     if (genre === "드라마") {
@@ -15,7 +15,7 @@ function ContentListItem({ title, genre }) {
   return (
     <List
       onClick={() => {
-        navigate(`/detail/${title}`);
+        navigate(`/detail/${id}`);
       }}
     >
       <Label createLabel={createLabel(genre)} />

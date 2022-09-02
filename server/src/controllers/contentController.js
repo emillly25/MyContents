@@ -13,8 +13,17 @@ const contentController = {
   async createContent(req, res) {
     try {
       const data = req.body;
-      await contentModel.create(data);
-      res.status(200).json(data);
+      const result = await contentModel.create(data);
+      res.status(200).json(result);
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  async deleteContent(req, res) {
+    try {
+      const id = req.params.id;
+      const result = await contentModel.deleteOne(id);
+      res.status(200).json(result);
     } catch (error) {
       console.error(error);
     }

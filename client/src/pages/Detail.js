@@ -12,16 +12,17 @@ import {
   faEllipsisVertical,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import * as api from "../api";
 
 function Detail({ data, onDelete }) {
   const [isModal, setIsModal] = useState(false);
-  const { title } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const foundData = data.find((el) => el.title === title);
+  const foundData = data.find((el) => el._id === id);
 
   const deleteList = async (id) => {
     try {
-      await axios.delete(`http://localhost:3004/contents/${id}`);
+      await api.delete(`/api/content/${id}`);
     } catch (err) {
       throw new Error("데이터를 삭제할 수 없습니다.");
     }
@@ -58,7 +59,7 @@ function Detail({ data, onDelete }) {
         <UpdateDeleteModal
           setIsModal={setIsModal}
           title={foundData.title}
-          id={foundData.id}
+          id={foundData._id}
           del={del}
         />
       )}

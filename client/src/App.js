@@ -17,11 +17,11 @@ function App() {
   useEffect(() => {
     getList();
   }, []);
+
   const getList = async () => {
     setLoading(true);
     try {
       const res = await api.get("/api/content/get");
-      console.log("get", res);
       setData(res.data);
       setLoading(false);
     } catch (err) {
@@ -31,15 +31,13 @@ function App() {
 
   const onCreate = (data) => {
     setData((cur) => {
-      const newData = { ...data, id: dataId.current };
-      const newArr = [...cur, newData];
-      dataId.current += 1;
-      return newArr;
+      const newData = [...cur, data];
+      return newData;
     });
   };
 
   const onDelete = (id) => {
-    const filteredArr = data.filter((el) => el.id !== id);
+    const filteredArr = data.filter((el) => el._id !== id);
     setData(filteredArr);
   };
 
@@ -59,7 +57,7 @@ function App() {
             element={<MainList data={data} loading={loading} />}
           />
           <Route
-            path="/detail/:title"
+            path="/detail/:id"
             element={<Detail data={data} onDelete={onDelete} />}
           />
           <Route path="/create" element={<CreateList onCreate={onCreate} />} />
