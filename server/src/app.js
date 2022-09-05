@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { contentRouter } from "./routers/contentRouter";
+import { loginRouter } from "./routers/loginRouter";
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", contentRouter);
 app.use("/api/content", contentRouter);
+app.use("/auth", loginRouter);
 
 export { app };
