@@ -3,6 +3,7 @@ import UpdateList from "./pages/UpdateList";
 import MainList from "./pages/MainList";
 import Detail from "./pages/Detail";
 import NotFonud from "./pages/NotFound";
+import Login from "./pages/Login";
 import axios from "axios";
 import * as api from "./api";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -57,6 +58,7 @@ function App() {
             path="/"
             element={<MainList data={data} loading={loading} />}
           />
+          <Route path="/login" element={<Login />} />
           <Route
             path="/detail/:id"
             element={
