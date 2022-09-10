@@ -3,15 +3,17 @@ import UpdateList from "./pages/UpdateList";
 import MainList from "./pages/MainList";
 import Detail from "./pages/Detail";
 import NotFonud from "./pages/NotFound";
+import Login from "./pages/Login";
+import List from "./pages/List";
 import axios from "axios";
 import * as api from "./api";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  const dataId = useRef(0);
 
   //초기 데이터 랜더링
   useEffect(() => {
@@ -53,10 +55,9 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={<MainList data={data} loading={loading} />}
-          />
+          <Route path="/" element={<MainList />} />
+          <Route path="/list" element={<List />} />
+          <Route path="/login" element={<Login />} />
           <Route
             path="/detail/:id"
             element={
