@@ -7,6 +7,9 @@ class ContentModel {
   async findAll() {
     return await Content.find();
   }
+  async findOne(id) {
+    return await Content.findOne({ _id: id });
+  }
 
   async create(data) {
     return await Content.create(data);

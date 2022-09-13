@@ -4,6 +4,15 @@ const contentController = {
   async getAllInfo(req, res) {
     try {
       const result = await contentModel.findAll();
+      res.status(200).json(result);
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  async getOneInfo(req, res) {
+    try {
+      const id = req.params.id;
+      const result = await contentModel.findOne(id);
       console.log("data", result);
       res.status(200).json(result);
     } catch (error) {
