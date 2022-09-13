@@ -1,7 +1,17 @@
-import * as S from "../style/DetailStyle";
+//Library
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+
+//Components
 import Logo from "../components/Logo";
+import Loading from "../components/Loading";
+
+//Util
+import * as api from "../api";
+
+//Style
+import * as S from "../style/DetailStyle";
 import Rating from "@mui/material/Rating";
 import UpdateDeleteModal from "../components/UpdateDeleteModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,9 +19,6 @@ import {
   faArrowLeft,
   faEllipsisVertical,
 } from "@fortawesome/free-solid-svg-icons";
-import * as api from "../api";
-import Loading from "../components/Loading";
-import { useQuery } from "@tanstack/react-query";
 
 function Detail() {
   const [isModal, setIsModal] = useState(false);
@@ -54,7 +61,7 @@ function Detail() {
             <FontAwesomeIcon icon={faEllipsisVertical} />
           </div>
         </S.IconBox>
-        {isModal && <UpdateDeleteModal setIsModal={setIsModal} id={data._id} />}
+        {isModal && <UpdateDeleteModal openModal={setIsModal} id={data._id} />}
         <S.TitleBox>
           <S.IndexText>제목:</S.IndexText>
           <h2>{data.title}</h2>

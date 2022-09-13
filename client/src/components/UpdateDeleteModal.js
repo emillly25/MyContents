@@ -1,11 +1,16 @@
+//Library
+import { useNavigate } from "react-router-dom";
+import { useMutation, QueryClient } from "@tanstack/react-query";
+
+//Util
+import * as api from "../api";
+
+//Style
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
-import { useMutation, QueryClient } from "@tanstack/react-query";
-import * as api from "../api";
 
-function UpdateDeleteModal({ setIsModal, id }) {
+function UpdateDeleteModal({ openModal, id }) {
   const navigate = useNavigate();
   const queryClient = new QueryClient();
   const mutations = useMutation((id) => {
@@ -22,7 +27,7 @@ function UpdateDeleteModal({ setIsModal, id }) {
     <div>
       <OutsideModal
         onClick={() => {
-          setIsModal(false);
+          openModal(false);
         }}
       />
       <ModalContainer>

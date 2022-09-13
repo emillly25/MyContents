@@ -1,11 +1,18 @@
-import Logo from "../components/Logo";
-import ContentListItem from "../components/ContentListItem";
-import Loading from "../components/Loading";
-import * as S from "../style/MainListStyle";
+//Library
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+
+//Components
+import Logo from "../components/Logo";
+import ContentListItem from "../components/ContentListItem";
+import Loading from "../components/Loading";
+
+//Util
 import * as api from "../api";
+
+//Style
+import * as S from "../style/MainListStyle";
 
 function MainList() {
   const navigate = useNavigate();

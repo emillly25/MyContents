@@ -1,11 +1,13 @@
+//Library
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+//Components
 import CreateList from "./pages/CreateList";
 import UpdateList from "./pages/UpdateList";
 import MainList from "./pages/MainList";
 import Detail from "./pages/Detail";
 import NotFonud from "./pages/NotFound";
 import Login from "./pages/Login";
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
