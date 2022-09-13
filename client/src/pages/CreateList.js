@@ -16,11 +16,15 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import Loading from "../components/Loading";
 
-function CreateList({ onCreate, loading }) {
+function CreateList() {
   const navigate = useNavigate();
+  const mutations = useMutation((newContent) => {
+    return api.post("/api/content", newContent);
+  });
   const [value, setValue] = useState({
     title: "",
     genre: "",
@@ -46,15 +50,6 @@ function CreateList({ onCreate, loading }) {
       return newValue;
     });
   };
-  const postList = async (obj) => {
-    try {
-      const res = await api.post("/api/content", obj);
-      onCreate(res.data);
-      navigate("/");
-    } catch (err) {
-      throw new Error("데이터를 전송할 수 없습니다.");
-    }
-  };
 
   const formValidation = () => {
     if (value.title.length === 0) {
@@ -78,12 +73,13 @@ function CreateList({ onCreate, loading }) {
       date: dayjs(date).format("YYYY-MM-DD"),
     };
 
-    postList(obj); //DB로 POST
+    mutations.mutate(obj); //DB로 POST
+    navigate("/");
   };
 
   return (
     <>
-      {loading ? (
+      {mutations.isLoading ? (
         <Loading />
       ) : (
         <S.MobileContainer>

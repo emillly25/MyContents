@@ -15,29 +15,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  //초기 데이터 랜더링
-  useEffect(() => {
-    getList();
-  }, []);
-
-  const getList = async () => {
-    setLoading(true);
-    try {
-      const res = await api.get("/api/content");
-      setData(res.data);
-      setLoading(false);
-    } catch (err) {
-      throw new Error("데이터를 불러올 수 없습니다.");
-    }
-  };
-
-  const onCreate = (data) => {
-    setData((cur) => {
-      const newData = [...cur, data];
-      return newData;
-    });
-  };
-
   const onDelete = (id) => {
     const filteredArr = data.filter((el) => el._id !== id);
     setData(filteredArr);
@@ -58,16 +35,8 @@ function App() {
           <Route path="/" element={<MainList />} />
           <Route path="/list" element={<List />} />
           <Route path="/login" element={<Login />} />
-          <Route
-            path="/detail/:id"
-            element={
-              <Detail data={data} onDelete={onDelete} loading={loading} />
-            }
-          />
-          <Route
-            path="/create"
-            element={<CreateList onCreate={onCreate} loading={loading} />}
-          />
+          <Route path="/detail/:id" element={<Detail />} />
+          <Route path="/create" element={<CreateList />} />
           <Route
             path="/update/:id"
             element={

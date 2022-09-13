@@ -2,9 +2,22 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useMutation, QueryClient } from "@tanstack/react-query";
+import * as api from "../api";
 
-function UpdateDeleteModal({ setIsModal, title, id, del }) {
+function UpdateDeleteModal({ setIsModal, id }) {
   const navigate = useNavigate();
+  const queryClient = new QueryClient();
+  const mutations = useMutation((id) => {
+    return api.delete(`/api/content/${id}`);
+  });
+  function delList(id) {
+    if (window.confirm("삭제하시겠습니까?")) {
+      mutations.mutate(id);
+      queryClient.invalidateQueries(["content"]);
+      navigate("/");
+    }
+  }
   return (
     <div>
       <OutsideModal
@@ -25,7 +38,7 @@ function UpdateDeleteModal({ setIsModal, title, id, del }) {
         <div
           className="delete"
           onClick={() => {
-            del(id);
+            delList(id);
           }}
         >
           <FontAwesomeIcon icon={faTrash} />

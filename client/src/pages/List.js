@@ -14,7 +14,6 @@ export default function List() {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-  console.log("data", data);
   return (
     <div>
       <h1>제목 데이터</h1>
