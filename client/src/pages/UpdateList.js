@@ -19,152 +19,157 @@ import { useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import * as api from "../api";
 import Loading from "../components/Loading";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-function UpdateList({ onUpdate, data, loading }) {
-  const { id } = useParams();
-  const foundData = data.find((el) => el._id === id);
+function UpdateList() {
+  const [date, setDate] = useState(data.date);
   const [value, setValue] = useState({
-    _id: foundData._id,
-    title: foundData.title,
-    genre: foundData.genre,
-    memo: foundData.memo,
-    rating: foundData.rating,
+    _id: data._id,
+    title: data.title,
+    genre: data.genre,
+    memo: data.memo,
+    rating: data.rating,
   });
-  const [date, setDate] = useState(foundData.date);
-
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { isLoading, isError, data, error } = useQuery(["detail"], findOne, {
+    select: (data) => {
+      return data.data;
+    },
+  });
 
-  const updateList = async (obj) => {
-    try {
-      await api.patch(`/api/content/${id}`, obj);
-      onUpdate(obj);
-      navigate(`/detail/${id}`);
-    } catch (err) {
-      throw new Error("데이터를 수정 할 수 없습니다.");
-    }
-  };
+  function findOne() {
+    return api.get(`/${id}`);
+  }
 
+  const mutations = useMutation((updateContent) => {
+    return api.patch(`/api/content/${id}`, updateContent);
+  });
+
+  if (isLoading) {
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  }
   return (
     <>
-      {loading ? (
-        <Loading />
-      ) : (
-        <S.MobileContainer>
-          <S.BackBtnBox
-            onClick={() => {
-              navigate(`/detail/${id}`);
+      <S.MobileContainer>
+        <S.BackBtnBox
+          onClick={() => {
+            navigate(`/detail/${id}`);
+          }}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </S.BackBtnBox>
+        <Logo />
+        <S.CreateContent>
+          <TextField
+            id="outlined"
+            label="제목"
+            name="title"
+            variant="outlined"
+            value={value.title}
+            onChange={(e) => {
+              setValue((cur) => {
+                const newValue = { ...cur, title: e.target.value };
+                return newValue;
+              });
             }}
-          >
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </S.BackBtnBox>
-          <Logo />
-          <S.CreateContent>
-            <TextField
-              id="outlined"
-              label="제목"
-              name="title"
-              variant="outlined"
-              value={value.title}
-              onChange={(e) => {
-                setValue((cur) => {
-                  const newValue = { ...cur, title: e.target.value };
-                  return newValue;
-                });
-              }}
-              size="normal"
-              style={{
-                width: "350px",
-                margin: "20px auto ",
-              }}
-            />
-            <S.SubBox>
-              <FormControl style={{ width: "150px" }}>
-                <InputLabel id="demo-simple-select-label">장르</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  label="genre"
-                  name="genre"
-                  value={value.genre}
-                  onChange={(e) => {
-                    setValue((cur) => {
-                      const newValue = { ...cur, genre: e.target.value };
-                      return newValue;
-                    });
-                  }}
-                >
-                  <MenuItem value={"드라마"}>드라마</MenuItem>
-                  <MenuItem value={"영화"}>영화</MenuItem>
-                  <MenuItem value={"책"}>책</MenuItem>
-                </Select>
-              </FormControl>
-              <S.DateBox>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <MobileDatePicker
-                    label="날짜"
-                    value={date} //date : 변환된 string
-                    onChange={(cur) => {
-                      //cur: 진짜 date형식
-                      setDate(cur);
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-              </S.DateBox>
-            </S.SubBox>
-            <TextField
-              id="outlined-multiline-flexible"
-              label="나만의 감상평 남기기"
-              name="memo"
-              multiline
-              minRows={8}
-              value={value.memo}
-              onChange={(e) => {
-                setValue((cur) => {
-                  const newValue = { ...cur, memo: e.target.value };
-                  return newValue;
-                });
-              }}
-              style={{
-                width: "350px",
-                margin: "20px auto ",
-                marginBottom: "10px",
-              }}
-            />
-            <S.RatingBox>
-              <Rating
-                name="rating"
-                value={value.rating}
+            size="normal"
+            style={{
+              width: "350px",
+              margin: "20px auto ",
+            }}
+          />
+          <S.SubBox>
+            <FormControl style={{ width: "150px" }}>
+              <InputLabel id="demo-simple-select-label">장르</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="genre"
+                name="genre"
+                value={value.genre}
                 onChange={(e) => {
                   setValue((cur) => {
-                    const newValue = { ...cur, rating: Number(e.target.value) };
+                    const newValue = { ...cur, genre: e.target.value };
                     return newValue;
                   });
                 }}
-                style={{ fontSize: "45px" }}
-              />
-            </S.RatingBox>
-          </S.CreateContent>
-          <S.ButtonBox>
-            <S.SubmitBtn
-              type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                if (window.confirm("수정하시겠습니까?")) {
-                  const newObj = {
-                    ...value,
-                    date: dayjs(date).format("YYYY-MM-DD"),
-                  };
-                  console.log("수정obj", newObj);
-                  updateList(newObj);
-                }
+              >
+                <MenuItem value={"드라마"}>드라마</MenuItem>
+                <MenuItem value={"영화"}>영화</MenuItem>
+                <MenuItem value={"책"}>책</MenuItem>
+              </Select>
+            </FormControl>
+            <S.DateBox>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <MobileDatePicker
+                  label="날짜"
+                  value={date} //date : 변환된 string
+                  onChange={(cur) => {
+                    //cur: 진짜 date형식
+                    setDate(cur);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            </S.DateBox>
+          </S.SubBox>
+          <TextField
+            id="outlined-multiline-flexible"
+            label="나만의 감상평 남기기"
+            name="memo"
+            multiline
+            minRows={8}
+            value={value.memo}
+            onChange={(e) => {
+              setValue((cur) => {
+                const newValue = { ...cur, memo: e.target.value };
+                return newValue;
+              });
+            }}
+            style={{
+              width: "350px",
+              margin: "20px auto ",
+              marginBottom: "10px",
+            }}
+          />
+          <S.RatingBox>
+            <Rating
+              name="rating"
+              value={value.rating}
+              onChange={(e) => {
+                setValue((cur) => {
+                  const newValue = { ...cur, rating: Number(e.target.value) };
+                  return newValue;
+                });
               }}
-            >
-              수정하기
-            </S.SubmitBtn>
-          </S.ButtonBox>
-        </S.MobileContainer>
-      )}
+              style={{ fontSize: "45px" }}
+            />
+          </S.RatingBox>
+        </S.CreateContent>
+        <S.ButtonBox>
+          <S.SubmitBtn
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              if (window.confirm("수정하시겠습니까?")) {
+                const newObj = {
+                  ...value,
+                  date: dayjs(date).format("YYYY-MM-DD"),
+                };
+                mutations.mutate(newObj);
+                navigate(`/detail/${id}`);
+              }
+            }}
+          >
+            수정하기
+          </S.SubmitBtn>
+        </S.ButtonBox>
+      </S.MobileContainer>
     </>
   );
 }

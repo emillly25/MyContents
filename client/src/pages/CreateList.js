@@ -21,10 +21,7 @@ import dayjs from "dayjs";
 import Loading from "../components/Loading";
 
 function CreateList() {
-  const navigate = useNavigate();
-  const mutations = useMutation((newContent) => {
-    return api.post("/api/content", newContent);
-  });
+  const [date, setDate] = useState(null);
   const [value, setValue] = useState({
     title: "",
     genre: "",
@@ -33,7 +30,10 @@ function CreateList() {
     date: null,
   });
 
-  const [date, setDate] = useState(null);
+  const navigate = useNavigate();
+  const mutations = useMutation((newContent) => {
+    return api.post("/api/content", newContent);
+  });
 
   const handleChange = (e) => {
     setValue((cur) => {

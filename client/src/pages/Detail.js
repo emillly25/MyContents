@@ -6,20 +6,17 @@ import Rating from "@mui/material/Rating";
 import UpdateDeleteModal from "../components/UpdateDeleteModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPencil,
-  faTrash,
   faArrowLeft,
   faEllipsisVertical,
 } from "@fortawesome/free-solid-svg-icons";
 import * as api from "../api";
 import Loading from "../components/Loading";
-import { useMutation, useQuery, QueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 function Detail() {
   const [isModal, setIsModal] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const queryClient = new QueryClient();
   const { isLoading, isError, data, error } = useQuery(["detail"], findOne, {
     select: (data) => {
       return data.data;
