@@ -1,9 +1,9 @@
 //Library
 import { useNavigate } from "react-router-dom";
-import { useMutation, QueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 //Util
-import * as api from "../api";
+import { deleteOne } from "../utils/reactQueryFn";
 
 //Style
 import styled from "styled-components";
@@ -12,14 +12,12 @@ import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function UpdateDeleteModal({ openModal, id }) {
   const navigate = useNavigate();
-  const queryClient = new QueryClient();
-  const mutations = useMutation((id) => {
-    return api.delete(`/api/content/${id}`);
-  });
+  const queryClient = useQueryClient();
+  const mutations = useMutation(deleteOne);
   function delList(id) {
     if (window.confirm("삭제하시겠습니까?")) {
       mutations.mutate(id);
-      queryClient.invalidateQueries(["content"]);
+      // queryClient.invalidateQueries(["content"]);
       navigate("/");
     }
   }

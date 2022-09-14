@@ -1,14 +1,14 @@
 //Library
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 //Components
 import Logo from "../components/Logo";
 import Loading from "../components/Loading";
 
 //Util
-import * as api from "../api";
+import { findOne } from "../utils/reactQueryFn";
 
 //Style
 import * as S from "../style/DetailStyle";
@@ -24,14 +24,24 @@ function Detail() {
   const [isModal, setIsModal] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const { isLoading, isError, data, error } = useQuery(["detail"], findOne, {
-    select: (data) => {
-      return data.data;
+  const queryClient = useQueryClient();
+  const { isLoading, isError, data, error } = useQuery(
+    ["detail"],
+    () => {
+      return findOne(id);
     },
-  });
-  function findOne() {
-    return api.get(`/${id}`);
-  }
+    {
+      select: (data) => {
+        return data.data;
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries(["detail"]);
+      },
+      onError: () => {
+        console.error(`Error: ${error.message}`);
+      },
+    }
+  );
 
   if (isLoading) {
     return (

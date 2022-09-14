@@ -1,7 +1,7 @@
 //library
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 
 //Components
@@ -9,7 +9,7 @@ import Logo from "../components/Logo";
 import Loading from "../components/Loading";
 
 //Util
-import * as api from "../api";
+import { postOne } from "../utils/reactQueryFn";
 
 //Style
 import * as S from "../style/CreateListStyle";
@@ -37,8 +37,11 @@ function CreateList() {
   });
 
   const navigate = useNavigate();
-  const mutations = useMutation((newContent) => {
-    return api.post("/api/content", newContent);
+  const queryClient = useQueryClient();
+  const mutations = useMutation(postOne, {
+    onMutate: (val) => {
+      console.log("val", val);
+    },
   });
 
   function handleChange(e) {
@@ -76,6 +79,7 @@ function CreateList() {
     };
 
     mutations.mutate(newContentObj); //DB로 POST
+    queryClient.invalidateQueries(["content"], { exact: true });
     navigate("/");
   }
 
@@ -85,6 +89,10 @@ function CreateList() {
         <Loading />
       </>
     );
+  }
+
+  if (mutations.isError) {
+    return <h1>Error: ${error.message}</h1>;
   }
   return (
     <>

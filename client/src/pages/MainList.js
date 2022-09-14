@@ -9,7 +9,7 @@ import ContentListItem from "../components/ContentListItem";
 import Loading from "../components/Loading";
 
 //Util
-import * as api from "../api";
+import { getAllList } from "../utils/reactQueryFn";
 
 //Style
 import * as S from "../style/MainListStyle";
@@ -18,15 +18,18 @@ function MainList() {
   const navigate = useNavigate();
   const [genreData, setGenreData] = useState([]);
   const [isScroll, setIsScroll] = useState(false);
-  const { isLoading, isError, data, error } = useQuery(["content"], getList, {
-    select: (data) => {
-      return data.data;
-    },
-  });
-
-  function getList() {
-    return api.get("/api/content");
-  }
+  const { isLoading, isError, data, error } = useQuery(
+    ["content"],
+    getAllList,
+    {
+      select: (data) => {
+        return data.data;
+      },
+      onSuccess: (data) => {
+        console.log("받아온 data", data);
+      },
+    }
+  );
 
   function tabChangeHandler(genre) {
     if (genre === "드라마") {

@@ -1,7 +1,7 @@
 //Library
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useMutation, useQuery, QueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 
 //Components
@@ -10,6 +10,8 @@ import Loading from "../components/Loading";
 
 //Util
 import * as api from "../api";
+import { findOne } from "../utils/reactQueryFn";
+import { updateOne } from "../utils/reactQueryFn";
 
 //Style
 import * as S from "../style/CreateListStyle";
@@ -28,17 +30,19 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 function UpdateList() {
   const navigate = useNavigate();
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const { id } = useParams();
-  const { isLoading, isError, data, error } = useQuery(["detail"], findOne, {
-    select: (data) => {
-      return data.data;
+  const { isLoading, isError, data, error } = useQuery(
+    ["detail"],
+    () => {
+      return findOne(id);
     },
-  });
-
-  function findOne() {
-    return api.get(`/${id}`);
-  }
+    {
+      select: (data) => {
+        return data.data;
+      },
+    }
+  );
 
   const [value, setValue] = useState({
     _id: data._id,
@@ -48,8 +52,20 @@ function UpdateList() {
     rating: data.rating,
   });
   const [date, setDate] = useState(data.date);
-  const mutations = useMutation((updateContent) => {
-    return api.patch(`/api/content/${id}`, updateContent);
+  // const mutations = useMutation(
+  //   (updateContent) => {
+  //     return api.patch(`/api/content/${id}`, updateContent);
+  //   },
+  //   {
+  //     onMutate: (val) => {
+  //       console.log("val", val);
+  //     },
+  //   }
+  // );
+  const mutations = useMutation(updateOne, {
+    onMutate: (value) => {
+      console.log("value", value);
+    },
   });
 
   function handleChange(e) {
@@ -86,8 +102,8 @@ function UpdateList() {
         ...value,
         date: dayjs(date).format("YYYY-MM-DD"),
       };
-      mutations.mutate(updateContentObj);
-      queryClient.invalidateQueries(["detail"]);
+      //when submitbutn triggers,
+      mutations.mutate(updateContentObj, id);
       navigate(`/detail/${id}`);
     }
   }
@@ -104,6 +120,7 @@ function UpdateList() {
       </>
     );
   }
+
   return (
     <>
       <S.MobileContainer>
