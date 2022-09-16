@@ -13,12 +13,20 @@ import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
 function UpdateDeleteModal({ openModal, id }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const mutations = useMutation(deleteOne);
+
+  const deleteMutation = useMutation((id) => deleteOne(id), {
+    onMutate: () => {
+      console.log("삭제중입니다.");
+    },
+    onSuccess: () => {
+      console.log("삭제되었습니다!");
+      queryClient.removeQueries(["content", { id }]);
+    },
+  });
   function delList(id) {
     if (window.confirm("삭제하시겠습니까?")) {
-      mutations.mutate(id);
-      // queryClient.invalidateQueries(["content"]);
-      navigate("/");
+      deleteMutation.mutate(id);
+      navigate("/"); //홈으로 이동하면 자동으로 다시 ['content']가 refetching 됨
     }
   }
   return (

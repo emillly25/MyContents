@@ -1,7 +1,7 @@
 //Library
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 
 //Components
@@ -9,7 +9,6 @@ import Logo from "../components/Logo";
 import Loading from "../components/Loading";
 
 //Util
-import * as api from "../api";
 import { findOne } from "../utils/reactQueryFn";
 import { updateOne } from "../utils/reactQueryFn";
 
@@ -30,16 +29,18 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 function UpdateList() {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const { id } = useParams();
   const { isLoading, isError, data, error } = useQuery(
-    ["detail"],
+    ["content", { id }],
     () => {
       return findOne(id);
     },
     {
       select: (data) => {
         return data.data;
+      },
+      onSuccess: () => {
+        console.log("업데이트 페이지 접속^^");
       },
     }
   );
@@ -52,19 +53,13 @@ function UpdateList() {
     rating: data.rating,
   });
   const [date, setDate] = useState(data.date);
-  // const mutations = useMutation(
-  //   (updateContent) => {
-  //     return api.patch(`/api/content/${id}`, updateContent);
-  //   },
-  //   {
-  //     onMutate: (val) => {
-  //       console.log("val", val);
-  //     },
-  //   }
-  // );
-  const mutations = useMutation(updateOne, {
-    onMutate: (value) => {
-      console.log("value", value);
+
+  const updateMutation = useMutation((infoObj) => updateOne(infoObj), {
+    onMutate: () => {
+      console.log("업데이트 중입니다.");
+    },
+    onSuccess: () => {
+      console.log("업데이트 성공!!");
     },
   });
 
@@ -102,8 +97,9 @@ function UpdateList() {
         ...value,
         date: dayjs(date).format("YYYY-MM-DD"),
       };
-      //when submitbutn triggers,
-      mutations.mutate(updateContentObj, id);
+
+      updateMutation.mutate({ updateContent: updateContentObj, id });
+      //detail 페이지로 이동하면서 ['content',{id}] refetching!
       navigate(`/detail/${id}`);
     }
   }
@@ -119,6 +115,21 @@ function UpdateList() {
         <Loading />
       </>
     );
+  }
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
+
+  if (updateMutation.isLoading) {
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  }
+
+  if (updateMutation.isError) {
+    return <h1>Error: fail to update post!${error.message}</h1>;
   }
 
   return (

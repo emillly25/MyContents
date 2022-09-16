@@ -26,7 +26,7 @@ function Detail() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { isLoading, isError, data, error } = useQuery(
-    ["detail"],
+    ["content", { id }],
     () => {
       return findOne(id);
     },
@@ -35,10 +35,7 @@ function Detail() {
         return data.data;
       },
       onSuccess: () => {
-        queryClient.invalidateQueries(["detail"]);
-      },
-      onError: () => {
-        console.error(`Error: ${error.message}`);
+        console.log("detail페이지 잘 들어옴^^");
       },
     }
   );
@@ -49,6 +46,9 @@ function Detail() {
         <Loading />
       </>
     );
+  }
+  if (isError) {
+    return <span>Error: {error.message}</span>;
   }
 
   return (

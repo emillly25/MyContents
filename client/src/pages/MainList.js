@@ -26,7 +26,7 @@ function MainList() {
         return data.data;
       },
       onSuccess: (data) => {
-        console.log("받아온 data", data);
+        console.log("MainList data", data);
       },
     }
   );

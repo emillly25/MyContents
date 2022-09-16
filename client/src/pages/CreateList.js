@@ -38,9 +38,12 @@ function CreateList() {
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const mutations = useMutation(postOne, {
-    onMutate: (val) => {
-      console.log("val", val);
+  const postMutation = useMutation((newContent) => postOne(newContent), {
+    onMutate: () => {
+      console.log("create중입니다! ");
+    },
+    onSuccess: () => {
+      console.log("create 성공! ");
     },
   });
 
@@ -78,12 +81,12 @@ function CreateList() {
       date: dayjs(date).format("YYYY-MM-DD"),
     };
 
-    mutations.mutate(newContentObj); //DB로 POST
-    queryClient.invalidateQueries(["content"], { exact: true });
-    navigate("/");
+    //DB로 POST
+    postMutation.mutate(newContentObj);
+    navigate("/"); //홈으로 이동하면 ['content']가 다시 refetching 되므로 자동 업데이트
   }
 
-  if (mutations.isLoading) {
+  if (postMutation.isLoading) {
     return (
       <>
         <Loading />
@@ -91,9 +94,10 @@ function CreateList() {
     );
   }
 
-  if (mutations.isError) {
-    return <h1>Error: ${error.message}</h1>;
+  if (postMutation.isError) {
+    return <h1>Error: fail to create post!${error.message}</h1>;
   }
+
   return (
     <>
       <S.MobileContainer>

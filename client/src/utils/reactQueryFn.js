@@ -12,8 +12,8 @@ export function postOne(newContent) {
   return api.post("/api/content", newContent);
 }
 
-export function updateOne(updateContent, id) {
-  return api.patch(`/api/content/${id}`, updateContent);
+export function updateOne(infoObj) {
+  return api.patch(`/api/content/${infoObj.id}`, infoObj.updateContent);
 }
 
 export function deleteOne(id) {
