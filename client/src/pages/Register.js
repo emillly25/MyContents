@@ -1,11 +1,8 @@
+import styled from "styled-components";
 import { useState } from "react";
-import * as api from "../api";
-
 import { TextField } from "@mui/material";
 
-import styled from "styled-components";
-
-export default function Login() {
+export default function Register() {
   const [value, setValue] = useState({});
   function handleChange(e) {
     setValue((cur) => {
@@ -14,46 +11,69 @@ export default function Login() {
       return newValue;
     });
   }
-  async function formHandler() {
+
+  function formHandler() {
+    const reg =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     if (!value.email) {
       return alert("이메일을 입력해주세요!");
     }
     if (!value.password) {
       return alert("비밀번호를 입력해주세요!");
     }
-    //이메일 비번 일치 확인 여부 필요(서버랑)
-    try {
-      const res = await api.post("/login", value);
-      const token = res.data.result;
-      sessionStorage.setItem("token", token);
-      alert(`정상적으로 로그인되었습니다.`);
-    } catch (error) {
-      return alert(error.response.data.error);
+    if (!value.passwordCheck) {
+      return alert("비밀번호 확인을 입력해주세요!");
+    }
+    if (!reg.test(value.email)) {
+      return alert("올바른 이메일 형식이 아닙니다!");
+    }
+
+    if (value.password.length < 4) {
+      return alert("비밀번호는 4자리 이상으로 설정해주세요!");
+    }
+    if (value.password !== value.passwordCheck) {
+      return alert("비밀번호가 일치하지 않습니다.");
     }
   }
   return (
     <MobileContainer>
-      <Title>Login</Title>
+      <Title>Register</Title>
       <InputBox>
+        <EmailBox>
+          <TextField
+            id="outlined"
+            label="이메일"
+            name="email"
+            type="email"
+            variant="outlined"
+            onChange={handleChange}
+            size="normal"
+            style={{
+              width: "270px",
+              margin: "10px auto ",
+            }}
+            required
+          />
+          <EmailCheckBtn>Check</EmailCheckBtn>
+        </EmailBox>
         <TextField
           id="outlined"
-          label="이메일"
-          name="email"
-          type="email"
+          label="비밀번호 (4자리 이상)"
+          name="password"
+          type="password"
           variant="outlined"
-          onChange={handleChange}
           size="normal"
+          onChange={handleChange}
           style={{
             width: "350px",
             margin: "10px auto ",
           }}
           required
         />
-
         <TextField
           id="outlined"
-          label="비밀번호"
-          name="password"
+          label="비밀번호 확인"
+          name="passwordCheck"
           type="password"
           variant="outlined"
           size="normal"
@@ -71,7 +91,7 @@ export default function Login() {
             formHandler();
           }}
         >
-          Login
+          Sign Up
         </SubmitBtn>
       </ButtonBox>
     </MobileContainer>
@@ -95,13 +115,17 @@ const Title = styled.h1`
 `;
 
 const InputBox = styled.div`
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px 0;
 `;
 
+const EmailBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+`;
 const ButtonBox = styled.div`
   display: flex;
   justify-content: center;
@@ -117,4 +141,11 @@ const SubmitBtn = styled.button`
   background-color: black;
   color: white;
   cursor: pointer;
+`;
+
+const EmailCheckBtn = styled(SubmitBtn)`
+  width: 65px;
+  height: 50px;
+  font-size: 14px;
+  border-radius: 5px;
 `;
