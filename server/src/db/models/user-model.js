@@ -52,6 +52,21 @@ class UserModel {
     }
     return "사용가능한 계정입니다!";
   }
+
+  async addUser(registerInfo) {
+    const { email, password } = registerInfo;
+    if (!email || !password) {
+      throw new Error("required value is not allowed to be null");
+    }
+    //이메일 중복체크는 이미 했으니까, 회원가입 바로 진행 ㄱㄱ
+    //1. 비밀번호 해쉬화
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUserInfo = { email, password: hashedPassword };
+
+    //2. db에 저장
+    const createNewUser = await User.create(newUserInfo);
+    return createNewUser;
+  }
 }
 
 const userModel = new UserModel();
