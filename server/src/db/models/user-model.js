@@ -21,15 +21,12 @@ class UserModel {
     }
 
     //3. 이메일이 존재하면 비밀번호 확인
-    // const correctPasswordHash = user.password; //db에 저장되어 있는 암호화된 비밀번호
-    // const isPasswordCorrect = await bcrypt.compare(
-    //   password,
-    //   correctPasswordHash
-    // );
-    // if (!isPasswordCorrect) {
-    //   throw new Error("비밀번호가 올바르지 않습니다. 다시 확인해주세요!");
-    // }
-    if (user.password !== password) {
+    const correctPasswordHash = user.password; //db에 저장되어 있는 암호화된 비밀번호
+    const isPasswordCorrect = await bcrypt.compare(
+      password,
+      correctPasswordHash
+    );
+    if (!isPasswordCorrect) {
       throw new Error("비밀번호가 올바르지 않습니다. 다시 확인해주세요!");
     }
 
