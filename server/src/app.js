@@ -21,6 +21,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", contentRouter);
 app.use("/api/content", contentRouter);
-app.use("/auth", loginRouter);
+app.use("/login", loginRouter);
 
 export { app };
