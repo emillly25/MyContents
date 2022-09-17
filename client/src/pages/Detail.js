@@ -56,7 +56,7 @@ function Detail() {
       <S.MobileContainer>
         <S.BackBtnBox
           onClick={() => {
-            navigate("/");
+            navigate("/main");
           }}
         >
           <FontAwesomeIcon icon={faArrowLeft} />

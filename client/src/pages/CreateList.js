@@ -1,7 +1,7 @@
 //library
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
 
 //Components
@@ -37,7 +37,6 @@ function CreateList() {
   });
 
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const postMutation = useMutation((newContent) => postOne(newContent), {
     onMutate: () => {
       console.log("create중입니다! ");
@@ -83,7 +82,7 @@ function CreateList() {
 
     //DB로 POST
     postMutation.mutate(newContentObj);
-    navigate("/"); //홈으로 이동하면 ['content']가 다시 refetching 되므로 자동 업데이트
+    navigate("/main"); //홈으로 이동하면 ['content']가 다시 refetching 되므로 자동 업데이트
   }
 
   if (postMutation.isLoading) {

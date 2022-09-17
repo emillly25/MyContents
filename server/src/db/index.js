@@ -15,3 +15,4 @@ db.on("error", (error) =>
 );
 
 export * from "./models/content-model";
+export * from "./models/user-model";
