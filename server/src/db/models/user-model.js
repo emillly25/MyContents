@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 const User = model("user", UserSchema);
 
 class UserModel {
+  //로그인
   async findUserByEmail(loginInfo) {
     const { email, password } = loginInfo;
 
@@ -36,6 +37,20 @@ class UserModel {
     const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
     const token = jwt.sign({ userId: user._id }, secretKey);
     return token;
+  }
+
+  //1. 회원가입 이메일 중복 여부 확인
+  async checkUser(registerInfo) {
+    const { email } = registerInfo;
+    if (!email) {
+      throw new Error("required value is not allowed to be null");
+    }
+
+    const user = await User.findOne({ email });
+    if (user) {
+      throw new Error("이미 사용중인 계정입니다. 다른 이메일을 입력해주세요!");
+    }
+    return "사용가능한 계정입니다!";
   }
 }
 

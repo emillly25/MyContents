@@ -3,6 +3,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { contentRouter } from "./routers/contentRouter";
 import { loginRouter } from "./routers/loginRouter";
+import { registerRouter } from "./routers/registerRouter";
 
 const app = express();
 
@@ -22,5 +23,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", contentRouter);
 app.use("/api/content", contentRouter);
 app.use("/login", loginRouter);
+app.use("/register", registerRouter);
 
 export { app };
