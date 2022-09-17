@@ -1,7 +1,7 @@
 //library
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
 
 //Components
@@ -37,7 +37,6 @@ function CreateList() {
   });
 
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const postMutation = useMutation((newContent) => postOne(newContent), {
     onMutate: () => {
       console.log("create중입니다! ");
