@@ -1,15 +1,7 @@
-//Components
-import Logo from "../components/Logo";
 import { useState } from "react";
+import * as api from "../api";
 
-import {
-  TextField,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-  Rating,
-} from "@mui/material";
+import { TextField } from "@mui/material";
 
 import styled from "styled-components";
 
@@ -22,7 +14,7 @@ export default function Login() {
       return newValue;
     });
   }
-  function formHandler() {
+  async function formHandler() {
     if (!value.email) {
       return alert("이메일을 입력해주세요!");
     }
@@ -30,6 +22,14 @@ export default function Login() {
       return alert("비밀번호를 입력해주세요!");
     }
     //이메일 비번 일치 확인 여부 필요(서버랑)
+    try {
+      const res = await api.post("/login", value);
+      const token = res.data.result;
+      sessionStorage.setItem("token", token);
+      alert(`정상적으로 로그인되었습니다.`);
+    } catch (error) {
+      return alert(error.response.data.error);
+    }
   }
   return (
     <MobileContainer>
