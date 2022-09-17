@@ -3,6 +3,9 @@ import axios from "axios";
 async function get(apiUrl) {
   const result = await axios.get(`${process.env.REACT_APP_BASE_URL}${apiUrl}`, {
     withCredentials: true,
+    headers: {
+      Authorization: sessionStorage.getItem("token"),
+    },
   });
 
   if (!result) {
@@ -19,6 +22,7 @@ async function post(apiUrl, data) {
     {
       headers: {
         "Content-Type": "application/json",
+        Authorization: sessionStorage.getItem("token"),
       },
       withCredentials: true,
     }
@@ -33,6 +37,7 @@ async function patch(apiUrl, data) {
     {
       headers: {
         "Content-Type": "application/json",
+        Authorization: sessionStorage.getItem("token"),
       },
       withCredentials: true,
     }
@@ -46,6 +51,7 @@ async function del(apiUrl) {
     {
       headers: {
         "Content-Type": "application/json",
+        Authorization: sessionStorage.getItem("token"),
       },
       withCredentials: true,
     }

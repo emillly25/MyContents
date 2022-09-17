@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import * as api from "../api";
 import { useState } from "react";
 import { TextField } from "@mui/material";
 
@@ -34,6 +35,29 @@ export default function Register() {
     if (value.password !== value.passwordCheck) {
       return alert("비밀번호가 일치하지 않습니다.");
     }
+    registerHandler();
+  }
+  async function checkEmail() {
+    try {
+      const res = await api.post("/register/checkEmail", {
+        email: value.email,
+      });
+      alert("사용가능한 이메일 입니다!");
+    } catch (error) {
+      alert(error.response.data.error);
+    }
+  }
+
+  async function registerHandler() {
+    try {
+      const res = await api.post("/register", {
+        email: value.email,
+        password: value.password,
+      });
+      console.log("회원가입 응답", res);
+    } catch (error) {
+      alert(error.response.data.error);
+    }
   }
   return (
     <MobileContainer>
@@ -54,7 +78,13 @@ export default function Register() {
             }}
             required
           />
-          <EmailCheckBtn>Check</EmailCheckBtn>
+          <EmailCheckBtn
+            onClick={() => {
+              checkEmail();
+            }}
+          >
+            Check
+          </EmailCheckBtn>
         </EmailBox>
         <TextField
           id="outlined"

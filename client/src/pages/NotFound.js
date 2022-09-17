@@ -8,7 +8,7 @@ function NotFonud() {
       <h1>404 Not Found</h1>
       <a
         onClick={() => {
-          navigate("/");
+          navigate("/main");
         }}
       >
         Go Back to Home

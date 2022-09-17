@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as api from "../api";
 
 import { TextField } from "@mui/material";
@@ -7,6 +8,7 @@ import styled from "styled-components";
 
 export default function Login() {
   const [value, setValue] = useState({});
+  const navigate = useNavigate();
   function handleChange(e) {
     setValue((cur) => {
       const newValue = { ...cur };
@@ -26,7 +28,7 @@ export default function Login() {
       const res = await api.post("/login", value);
       const token = res.data.result;
       sessionStorage.setItem("token", token);
-      alert(`정상적으로 로그인되었습니다.`);
+      navigate("/main");
     } catch (error) {
       return alert(error.response.data.error);
     }
@@ -74,6 +76,16 @@ export default function Login() {
           Login
         </SubmitBtn>
       </ButtonBox>
+      <TextBox>
+        <Text>계정이 없으신가요?</Text>
+        <Link
+          onClick={() => {
+            navigate("/register");
+          }}
+        >
+          register
+        </Link>
+      </TextBox>
     </MobileContainer>
   );
 }
@@ -106,7 +118,6 @@ const ButtonBox = styled.div`
   display: flex;
   justify-content: center;
   padding: 10px 0;
-  margin-bottom: 20px;
 `;
 const SubmitBtn = styled.button`
   width: 350px;
@@ -117,4 +128,26 @@ const SubmitBtn = styled.button`
   background-color: black;
   color: white;
   cursor: pointer;
+`;
+
+const TextBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+`;
+const Text = styled.p`
+  color: black;
+  font-size: 12px;
+`;
+
+const Link = styled.a`
+  display: inline-block;
+  color: gray;
+  cursor: pointer;
+  font-size: 12px;
+  :hover {
+    opacity: 0.5;
+    border-bottom: 1px solid gray;
+  }
 `;

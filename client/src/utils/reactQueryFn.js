@@ -1,7 +1,9 @@
 import * as api from "../api";
 
-export function getAllList() {
-  return api.get("/api/content");
+export async function getAllList() {
+  const req = await api.get("/api/content");
+  console.log("req", req);
+  return req;
 }
 
 export function findOne(id) {
