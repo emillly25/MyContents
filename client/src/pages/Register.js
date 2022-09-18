@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import * as api from "../api";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 
 export default function Register() {
+  const navigate = useNavigate();
   const [value, setValue] = useState({});
   function handleChange(e) {
     setValue((cur) => {
@@ -13,9 +15,7 @@ export default function Register() {
     });
   }
 
-  function formHandler() {
-    const reg =
-      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+  async function formHandler() {
     if (!value.email) {
       return alert("이메일을 입력해주세요!");
     }
@@ -25,9 +25,6 @@ export default function Register() {
     if (!value.passwordCheck) {
       return alert("비밀번호 확인을 입력해주세요!");
     }
-    if (!reg.test(value.email)) {
-      return alert("올바른 이메일 형식이 아닙니다!");
-    }
 
     if (value.password.length < 4) {
       return alert("비밀번호는 4자리 이상으로 설정해주세요!");
@@ -35,9 +32,15 @@ export default function Register() {
     if (value.password !== value.passwordCheck) {
       return alert("비밀번호가 일치하지 않습니다.");
     }
-    registerHandler();
+    await registerHandler();
+    loginHandler();
   }
   async function checkEmail() {
+    const reg =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    if (!reg.test(value.email)) {
+      return alert("올바른 이메일 형식이 아닙니다!");
+    }
     try {
       const res = await api.post("/register/checkEmail", {
         email: value.email,
@@ -54,9 +57,24 @@ export default function Register() {
         email: value.email,
         password: value.password,
       });
-      console.log("회원가입 응답", res);
+      console.log(res);
     } catch (error) {
       alert(error.response.data.error);
+    }
+  }
+
+  async function loginHandler() {
+    try {
+      const res = await api.post("/login", {
+        email: value.email,
+        password: value.password,
+      });
+      const token = res.data.result;
+      console.log("token", token);
+      sessionStorage.setItem("token", token);
+      navigate("/main");
+    } catch (error) {
+      return alert(error.message);
     }
   }
   return (

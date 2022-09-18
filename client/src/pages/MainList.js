@@ -46,7 +46,7 @@ function MainList() {
       navigate("?genre=책");
     } else {
       setGenreData(data);
-      navigate("/");
+      navigate("/main");
     }
   }
 
