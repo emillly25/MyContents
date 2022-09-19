@@ -33,7 +33,7 @@ class UserModel {
     //4. 로그인 성공 -> JWT 토큰 생성
     const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
     const token = jwt.sign({ userId: user._id }, secretKey);
-    return token;
+    return { token, userId: user._id };
   }
 
   //1. 회원가입 이메일 중복 여부 확인

@@ -1,23 +1,21 @@
 import * as api from "../api";
 
 export async function getAllList() {
-  const req = await api.get("/api/content");
-  console.log("req", req);
-  return req;
+  return await api.get("/api/content");
 }
 
-export function findOne(id) {
-  return api.get(`/${id}`);
+export async function findOne(contentId) {
+  return await api.get(`/${contentId}`);
 }
 
-export function postOne(newContent) {
-  return api.post("/api/content", newContent);
+export async function postOne(newContent) {
+  return await api.post("/api/content", newContent);
 }
 
-export function updateOne(infoObj) {
-  return api.patch(`/api/content/${infoObj.id}`, infoObj.updateContent);
+export async function updateOne(infoObj) {
+  return await api.patch(`/api/content/${infoObj.id}`, infoObj.updateContent);
 }
 
-export function deleteOne(id) {
-  return api.delete(`/api/content/${id}`);
+export async function deleteOne(contentId) {
+  return await api.delete(`/api/content/${contentId}`);
 }

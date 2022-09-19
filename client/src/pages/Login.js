@@ -26,8 +26,10 @@ export default function Login() {
     //이메일 비번 일치 확인 여부 필요(서버랑)
     try {
       const res = await api.post("/login", value);
-      const token = res.data.result;
+      const token = res.data.result.token;
+      const userId = res.data.result.userId;
       sessionStorage.setItem("token", token);
+      sessionStorage.setItem("userId", userId);
       navigate("/main");
     } catch (error) {
       return alert(error.response.data.error);

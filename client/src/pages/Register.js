@@ -70,7 +70,6 @@ export default function Register() {
         password: value.password,
       });
       const token = res.data.result;
-      console.log("token", token);
       sessionStorage.setItem("token", token);
       navigate("/main");
     } catch (error) {

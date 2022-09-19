@@ -4,21 +4,21 @@ import { ContentSchema } from "../schemas/contentSchema";
 const Content = model("contents", ContentSchema);
 
 class ContentModel {
-  async findAll() {
-    return await Content.find();
+  async findAllById(userId) {
+    return await Content.find({ userId });
   }
-  async findOne(id) {
-    return await Content.findOne({ _id: id });
+  async findOne(contentId) {
+    return await Content.findOne({ _id: contentId });
   }
 
   async create(data) {
     return await Content.create(data);
   }
-  async deleteOne(id) {
-    return await Content.deleteOne({ _id: id });
+  async deleteOne(contentId) {
+    return await Content.deleteOne({ _id: contentId });
   }
-  async updateOne(id, content) {
-    return await Content.updateOne({ _id: id }, { ...content });
+  async updateOne(contentId, content) {
+    return await Content.updateOne({ _id: contentId }, { ...content });
   }
 }
 

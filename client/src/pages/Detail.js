@@ -1,7 +1,7 @@
 //Library
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 //Components
 import Logo from "../components/Logo";
@@ -24,7 +24,6 @@ function Detail() {
   const [isModal, setIsModal] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const { isLoading, isError, data, error } = useQuery(
     ["content", { id }],
     () => {

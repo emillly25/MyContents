@@ -2,7 +2,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //Components
-import Home from "./pages/Home";
 import CreateList from "./pages/CreateList";
 import UpdateList from "./pages/UpdateList";
 import MainList from "./pages/MainList";
