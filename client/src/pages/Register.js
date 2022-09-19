@@ -7,6 +7,7 @@ import { TextField } from "@mui/material";
 export default function Register() {
   const navigate = useNavigate();
   const [value, setValue] = useState({});
+  const [isCheckedEmail, setIsCheckedEmail] = useState(false);
   function handleChange(e) {
     setValue((cur) => {
       const newValue = { ...cur };
@@ -18,6 +19,9 @@ export default function Register() {
   async function formHandler() {
     if (!value.email) {
       return alert("이메일을 입력해주세요!");
+    }
+    if (!isCheckedEmail) {
+      return alert("이메일 사용가능 여부를 체크해주세요!");
     }
     if (!value.password) {
       return alert("비밀번호를 입력해주세요!");
@@ -32,8 +36,8 @@ export default function Register() {
     if (value.password !== value.passwordCheck) {
       return alert("비밀번호가 일치하지 않습니다.");
     }
-    await registerHandler();
-    loginHandler();
+    await registerHandler(); //회원가입 요청
+    loginHandler(); //회원가입 성공시 자동 로그인
   }
   async function checkEmail() {
     const reg =
@@ -42,10 +46,11 @@ export default function Register() {
       return alert("올바른 이메일 형식이 아닙니다!");
     }
     try {
-      const res = await api.post("/register/checkEmail", {
+      await api.post("/register/checkEmail", {
         email: value.email,
       });
       alert("사용가능한 이메일 입니다!");
+      setIsCheckedEmail(true);
     } catch (error) {
       alert(error.response.data.error);
     }
@@ -53,11 +58,10 @@ export default function Register() {
 
   async function registerHandler() {
     try {
-      const res = await api.post("/register", {
+      await api.post("/register", {
         email: value.email,
         password: value.password,
       });
-      console.log(res);
     } catch (error) {
       alert(error.response.data.error);
     }
