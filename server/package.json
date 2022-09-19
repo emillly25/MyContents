@@ -15,6 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "@sindresorhus/is": "^5.3.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
