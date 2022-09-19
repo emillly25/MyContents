@@ -163,6 +163,8 @@ const Title = styled.h1`
   font-size: 40px;
   padding: 10px 0;
   margin-top: 30px;
+  font-family: "Oleo Script Swash Caps", cursive;
+  letter-spacing: 2px;
 `;
 
 const InputBox = styled.div`

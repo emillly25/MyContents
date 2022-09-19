@@ -102,12 +102,13 @@ const Title = styled.h1`
   font-weight: bold;
   text-align: center;
   font-size: 40px;
+  letter-spacing: 2px;
   padding: 10px 0;
   margin-top: 30px;
+  font-family: "Oleo Script Swash Caps", cursive;
 `;
 
 const InputBox = styled.div`
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   align-items: center;
