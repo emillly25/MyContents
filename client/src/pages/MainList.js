@@ -1,6 +1,6 @@
 //Library
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 //Components
@@ -16,8 +16,8 @@ import * as S from "../style/MainListStyle";
 
 function MainList() {
   const navigate = useNavigate();
-  const [genreData, setGenreData] = useState([]);
   const [isScroll, setIsScroll] = useState(false);
+  const [genreData, setGenreData] = useState([]);
   const { isLoading, isError, data, error } = useQuery(
     ["content"],
     getAllList,
@@ -27,27 +27,18 @@ function MainList() {
       },
       onSuccess: (data) => {
         console.log("MainList data", data);
+        setGenreData(data);
       },
     }
   );
 
   function tabChangeHandler(genre) {
-    if (genre === "드라마") {
-      const dramaData = data.filter((el) => el.genre === "드라마");
-      setGenreData(dramaData);
-      navigate("?genre=드라마");
-    } else if (genre === "영화") {
-      const movieData = data.filter((el) => el.genre === "영화");
-      setGenreData(movieData);
-      navigate("?genre=영화");
-    } else if (genre === "책") {
-      const bookData = data.filter((el) => el.genre === "책");
-      setGenreData(bookData);
-      navigate("?genre=책");
-    } else {
+    if (genre === "all") {
       setGenreData(data);
-      navigate("/main");
+      return;
     }
+    const filteredArr = data.filter((el) => el.genre === genre);
+    setGenreData(filteredArr);
   }
 
   if (isLoading) {
@@ -68,7 +59,7 @@ function MainList() {
       <S.MenuNav>
         <S.MenuTab
           onClick={() => {
-            tabChangeHandler("");
+            tabChangeHandler("all");
           }}
         >
           All
@@ -104,7 +95,7 @@ function MainList() {
         }}
         isScroll={isScroll}
       >
-        {genreData.length === 0
+        {/* {genreData.length === 0
           ? data.map((el) => {
               return (
                 <ContentListItem
@@ -124,7 +115,17 @@ function MainList() {
                   title={el.title}
                 />
               );
-            })}
+            })} */}
+        {genreData.map((el) => {
+          return (
+            <ContentListItem
+              key={el._id}
+              genre={el.genre}
+              id={el._id}
+              title={el.title}
+            />
+          );
+        })}
       </S.ListBox>
       <S.ButtonBox>
         <S.AddBtn
