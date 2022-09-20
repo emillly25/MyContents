@@ -8,8 +8,10 @@
     "npm": "8.11.0"
   },
   "scripts": {
-    "heroku-prebuild": "cd client && npm ci && npm run build && mv build ../server && cd ../",
-    "start": "cd server && npm ci && babel-node server.js",
+    "client-build": "cd client && npm ci && npm run build && cd ../",
+    "server-build": "cd server && npm ci && cd ../ ",
+    "heroku-prebuild": "npm run client-build && npm run server-build && mv ./client/build ./server/build",
+    "start": "cd server && npm run start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,17 +23,5 @@
   "bugs": {
     "url": "https://github.com/emillly25/MyContents/issues"
   },
-  "homepage": "https://github.com/emillly25/MyContents#readme",
-  "dependencies": {
-    "babel-cli": "^6.26.0",
-    "@babel/core": "^7.19.1",
-    "@babel/node": "^7.19.1",
-    "@babel/preset-env": "^7.19.1",
-    "@babel/plugin-transform-runtime": "^7.18.10"
-  },
-  "babel": {
-    "presets": [
-      "@babel/env"
-    ]
-  }
+  "homepage": "https://github.com/emillly25/MyContents#readme"
 }
