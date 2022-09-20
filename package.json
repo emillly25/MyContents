@@ -4,7 +4,7 @@
   "description": "Log your memorable contents any time✨",
   "main": "index.js",
   "scripts": {
-    "heroku-prebuild": "cd client && npm ci && npm run build && mv build ../server",
+    "heroku-prebuild": "cd client && npm ci && npm run build && mv build ../server && cd ../",
     "start": "cd server && npm ci && babel-node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
