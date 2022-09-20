@@ -8,7 +8,7 @@
     "npm": "8.11.0"
   },
   "scripts": {
-    "start": "node server.js --exec babel-node",
+    "start": "babel-node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
