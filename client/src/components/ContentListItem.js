@@ -15,7 +15,7 @@ function ContentListItem({ id, genre, title }) {
   return (
     <List
       onClick={() => {
-        navigate(`https://my-content00.herokuapp.com/detail/${id}`);
+        navigate(`/detail/${id}`);
       }}
     >
       <Label createLabel={createLabel(genre)} />

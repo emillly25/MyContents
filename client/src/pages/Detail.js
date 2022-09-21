@@ -55,7 +55,7 @@ function Detail() {
       <S.MobileContainer>
         <S.BackBtnBox
           onClick={() => {
-            navigate("https://my-content00.herokuapp.com/main");
+            navigate("/main");
           }}
         >
           <FontAwesomeIcon icon={faArrowLeft} />

@@ -95,27 +95,6 @@ function MainList() {
         }}
         isScroll={isScroll}
       >
-        {/* {genreData.length === 0
-          ? data.map((el) => {
-              return (
-                <ContentListItem
-                  key={el._id}
-                  genre={el.genre}
-                  id={el._id}
-                  title={el.title}
-                />
-              );
-            })
-          : genreData.map((el) => {
-              return (
-                <ContentListItem
-                  key={el._id}
-                  genre={el.genre}
-                  id={el._id}
-                  title={el.title}
-                />
-              );
-            })} */}
         {genreData.map((el) => {
           return (
             <ContentListItem
@@ -130,7 +109,7 @@ function MainList() {
       <S.ButtonBox>
         <S.AddBtn
           onClick={() => {
-            navigate("https://my-content00.herokuapp.com/create");
+            navigate("/create");
           }}
         >
           +

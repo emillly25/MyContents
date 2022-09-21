@@ -26,7 +26,7 @@ function UpdateDeleteModal({ openModal, id }) {
   function delList(id) {
     if (window.confirm("삭제하시겠습니까?")) {
       deleteMutation.mutate(id);
-      navigate("https://my-content00.herokuapp.com/main"); //홈으로 이동하면 자동으로 다시 ['content']가 refetching 됨
+      navigate("/main"); //홈으로 이동하면 자동으로 다시 ['content']가 refetching 됨
     }
   }
   return (
@@ -40,7 +40,7 @@ function UpdateDeleteModal({ openModal, id }) {
         <div
           className="modify"
           onClick={() => {
-            navigate(`https://my-content00.herokuapp.com/update/${id}`);
+            navigate(`/update/${id}`);
           }}
         >
           <FontAwesomeIcon icon={faPencil} />
