@@ -5,7 +5,7 @@ export async function getAllList() {
 }
 
 export async function findOne(contentId) {
-  return await api.get(`/${contentId}`);
+  return await api.get(`/api/content/${contentId}`);
 }
 
 export async function postOne(newContent) {
