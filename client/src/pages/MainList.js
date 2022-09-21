@@ -130,7 +130,7 @@ function MainList() {
       <S.ButtonBox>
         <S.AddBtn
           onClick={() => {
-            navigate("/create");
+            navigate("https://my-content00.herokuapp.com/create");
           }}
         >
           +

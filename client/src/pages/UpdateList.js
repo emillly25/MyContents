@@ -100,7 +100,7 @@ function UpdateList() {
 
       updateMutation.mutate({ updateContent: updateContentObj, id });
       //detail 페이지로 이동하면서 ['content',{id}] refetching!
-      navigate(`/detail/${id}`);
+      navigate(`https://my-content00.herokuapp.com/detail/${id}`);
     }
   }
 
@@ -137,7 +137,7 @@ function UpdateList() {
       <S.MobileContainer>
         <S.BackBtnBox
           onClick={() => {
-            navigate(`/detail/${id}`);
+            navigate(`https://my-content00.herokuapp.com/detail/${id}`);
           }}
         >
           <FontAwesomeIcon icon={faArrowLeft} />

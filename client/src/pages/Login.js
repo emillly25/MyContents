@@ -28,7 +28,7 @@ export default function Login() {
       const res = await api.post("/login", value);
       const token = res.data.result;
       sessionStorage.setItem("token", token);
-      navigate("/main");
+      navigate("https://my-content00.herokuapp.com/main");
     } catch (error) {
       return alert(error.response.data.error);
     }
@@ -80,7 +80,7 @@ export default function Login() {
         <Text>계정이 없으신가요?</Text>
         <Link
           onClick={() => {
-            navigate("/register");
+            navigate("https://my-content00.herokuapp.com/register");
           }}
         >
           register

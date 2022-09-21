@@ -75,7 +75,7 @@ export default function Register() {
       });
       const token = res.data.result;
       sessionStorage.setItem("token", token);
-      navigate("/main");
+      navigate("https://my-content00.herokuapp.com/main");
     } catch (error) {
       return alert(error.message);
     }
