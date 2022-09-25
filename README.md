@@ -43,12 +43,11 @@ Service Link: https://my-content00.herokuapp.com/
 
 ## 🔗4. 프로젝트 미리보기
 
-<img src='./client/photo/로그인.png' width='250px' height='250px'>
-<img src='./client/photo/회원가입.png' width='250px' height='250px'>
+<img src='https://seoul-cyber-punk.s3.ap-northeast-2.amazonaws.com/sehee/%EB%A1%9C%EA%B7%B8%EC%9D%B8.png' width='250px' height='250px'> <img src='https://seoul-cyber-punk.s3.ap-northeast-2.amazonaws.com/sehee/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.png' width='250px' height='250px'>
 <br>
-<img src='./client/photo/메인리스트.png'width='250px' height='400px'>
-<img src='./client/photo/장르필터링.png'width='250px' height='400px'>
-<img src='./client/photo/create.png'width='250px' height='400px'>
+<img src='https://seoul-cyber-punk.s3.ap-northeast-2.amazonaws.com/sehee/%EB%A9%94%EC%9D%B8%EB%A6%AC%EC%8A%A4%ED%8A%B8.png' width='250px' height='400px'>
+<img src='https://seoul-cyber-punk.s3.ap-northeast-2.amazonaws.com/sehee/%EC%9E%A5%EB%A5%B4%ED%95%84%ED%84%B0%EB%A7%81.png' width='250px' height='400px'>
+<img src='https://seoul-cyber-punk.s3.ap-northeast-2.amazonaws.com/sehee/create.png' width='250px' height='400px'>
 <br>
-<img src='./client/photo/디테일.png'width='250px' height='400px'>
-<img src='./client/photo/모달.png'width='250px' height='400px'>
+<img src='https://seoul-cyber-punk.s3.ap-northeast-2.amazonaws.com/sehee/%EB%94%94%ED%85%8C%EC%9D%BC.png' width='250px' height='400px'>
+<img src='https://seoul-cyber-punk.s3.ap-northeast-2.amazonaws.com/sehee/%EB%AA%A8%EB%8B%AC.png' width='250px' height='400px'>
