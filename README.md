@@ -42,3 +42,13 @@ Service Link: https://my-content00.herokuapp.com/
   <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white">
 
 ## 🔗4. 프로젝트 미리보기
+
+<img src='./client/photo/로그인.png' width='250px' height='250px'>
+<img src='./client/photo/회원가입.png' width='250px' height='250px'>
+<br>
+<img src='./client/photo/메인리스트.png'width='250px' height='400px'>
+<img src='./client/photo/장르필터링.png'width='250px' height='400px'>
+<img src='./client/photo/create.png'width='250px' height='400px'>
+<br>
+<img src='./client/photo/디테일.png'width='250px' height='400px'>
+<img src='./client/photo/모달.png'width='250px' height='400px'>
