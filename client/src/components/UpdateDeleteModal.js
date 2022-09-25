@@ -20,13 +20,13 @@ function UpdateDeleteModal({ openModal, id }) {
     },
     onSuccess: () => {
       console.log("삭제되었습니다!");
+      queryClient.invalidateQueries(["content"]);
       queryClient.removeQueries(["content", { id }]);
     },
   });
   function delList(id) {
     if (window.confirm("삭제하시겠습니까?")) {
       deleteMutation.mutate(id);
-      queryClient.invalidateQueries(["content"]);
       navigate("/"); //홈으로 이동하면 자동으로 다시 ['content']가 refetching 됨
     }
   }
