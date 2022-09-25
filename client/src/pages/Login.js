@@ -28,7 +28,7 @@ export default function Login() {
       const res = await api.post("/login", value);
       const token = res.data.result;
       sessionStorage.setItem("token", token);
-      navigate("/main");
+      navigate("/");
     } catch (error) {
       return alert(error.response.data.error);
     }

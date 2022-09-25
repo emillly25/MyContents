@@ -1,9 +1,17 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function Logo() {
+  const navigate = useNavigate();
   return (
     <>
-      <LogoText>My Content 🎬</LogoText>
+      <LogoText
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        My Content 🎬
+      </LogoText>
     </>
   );
 }

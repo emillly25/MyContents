@@ -84,7 +84,7 @@ function CreateList() {
 
     //DB로 POST
     postMutation.mutate(newContentObj);
-    navigate("/main"); //홈으로 이동하면 ['content']가 다시 refetching 되므로 자동 업데이트
+    navigate("/"); //홈으로 이동하면 ['content']가 다시 refetching 되므로 자동 업데이트
   }
 
   if (postMutation.isLoading) {

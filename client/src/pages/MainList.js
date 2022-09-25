@@ -1,6 +1,6 @@
 //Library
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 //Components
@@ -16,6 +16,14 @@ import * as S from "../style/MainListStyle";
 
 function MainList() {
   const navigate = useNavigate();
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+  }, []);
+
   const [isScroll, setIsScroll] = useState(false);
   const [genreData, setGenreData] = useState([]);
   const [activeGenre, setActiveGenre] = useState([
