@@ -16,7 +16,7 @@ Service Link: https://my-content00.herokuapp.com/
 ## 🔗2. 서비스 주요 사항
 
 - 풀스택 개발
-- 간편 회원가입 및 로그인 기능구현
+- 간편 회원가입 및 로그인 기능구현 (jwt 토큰 이용)
 - 콘텐츠 생성, 수정, 삭제, 상세조회 CRUD 구현
 - 장르별 콘텐츠 필터링
 - react-query를 이용한 loading 및 caching
