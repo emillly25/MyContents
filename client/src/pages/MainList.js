@@ -78,6 +78,7 @@ function MainList() {
           activeGenre={isActive("all")}
           onClick={() => {
             tabChangeHandler("all");
+            navigate("?tab=all");
           }}
         >
           All
@@ -86,6 +87,7 @@ function MainList() {
           activeGenre={isActive("드라마")}
           onClick={() => {
             tabChangeHandler("드라마");
+            navigate("?tab=드라마");
           }}
         >
           드라마
@@ -94,6 +96,7 @@ function MainList() {
           activeGenre={isActive("영화")}
           onClick={() => {
             tabChangeHandler("영화");
+            navigate("?tab=영화");
           }}
         >
           영화
@@ -102,6 +105,7 @@ function MainList() {
           activeGenre={isActive("책")}
           onClick={() => {
             tabChangeHandler("책");
+            navigate("?tab=책");
           }}
         >
           책
