@@ -1,6 +1,6 @@
 //Library
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 //Components
@@ -18,6 +18,12 @@ function MainList() {
   const navigate = useNavigate();
   const [isScroll, setIsScroll] = useState(false);
   const [genreData, setGenreData] = useState([]);
+  const [activeGenre, setActiveGenre] = useState([
+    { genre: "all", isActive: true },
+    { genre: "드라마", isActive: false },
+    { genre: "영화", isActive: false },
+    { genre: "책", isActive: false },
+  ]);
   const { isLoading, isError, data, error } = useQuery(
     ["content"],
     getAllList,
@@ -32,7 +38,18 @@ function MainList() {
     }
   );
 
+  function isActive(genre) {
+    const result = activeGenre.find((el) => el.genre === genre);
+    return result.isActive;
+  }
+
   function tabChangeHandler(genre) {
+    const newActiveGenre = activeGenre.map((el) => {
+      return el.genre !== genre
+        ? { ...el, isActive: false }
+        : { ...el, isActive: true };
+    });
+    setActiveGenre(newActiveGenre);
     if (genre === "all") {
       setGenreData(data);
       return;
@@ -58,6 +75,7 @@ function MainList() {
       <Logo />
       <S.MenuNav>
         <S.MenuTab
+          activeGenre={isActive("all")}
           onClick={() => {
             tabChangeHandler("all");
           }}
@@ -65,6 +83,7 @@ function MainList() {
           All
         </S.MenuTab>
         <S.MenuTab
+          activeGenre={isActive("드라마")}
           onClick={() => {
             tabChangeHandler("드라마");
           }}
@@ -72,6 +91,7 @@ function MainList() {
           드라마
         </S.MenuTab>
         <S.MenuTab
+          activeGenre={isActive("영화")}
           onClick={() => {
             tabChangeHandler("영화");
           }}
@@ -79,6 +99,7 @@ function MainList() {
           영화
         </S.MenuTab>
         <S.MenuTab
+          activeGenre={isActive("책")}
           onClick={() => {
             tabChangeHandler("책");
           }}

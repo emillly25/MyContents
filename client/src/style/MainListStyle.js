@@ -22,7 +22,8 @@ export const MenuTab = styled.div`
   padding: 5px;
   margin: 0 5px;
   cursor: pointer;
-
+  color: ${({ activeGenre }) => (activeGenre ? "red" : "black")};
+  font-weight: ${({ activeGenre }) => (activeGenre ? "bold" : "500")};
   :hover {
     opacity: 0.3;
   }

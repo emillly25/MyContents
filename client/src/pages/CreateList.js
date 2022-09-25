@@ -1,7 +1,7 @@
 //library
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 
 //Components
@@ -27,6 +27,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 function CreateList() {
+  const queryClient = useQueryClient();
   const [date, setDate] = useState(null);
   const [value, setValue] = useState({
     title: "",
@@ -43,6 +44,7 @@ function CreateList() {
     },
     onSuccess: () => {
       console.log("create 성공! ");
+      queryClient.invalidateQueries(["content"]);
     },
   });
 
