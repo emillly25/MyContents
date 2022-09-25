@@ -24,7 +24,15 @@ Service Link: https://my-content00.herokuapp.com/
 
 <br>
 
-## 🔗3. 기술스택
+## 🔗3. 이슈 및 개선사항
+
+1. 최초 json-server를 이용해 서버를 구현했지만, 새로 브라우저가 시작되면 데이터가<br> 저장되지 않는 문제가 발생 <br>
+   💡해결: express + mongoDB 로 서버와 데이터베이스 구축
+
+2. api 통신으로 서버 데이터를 받아오는 과정에서 loading 문제 발생 <br>
+   💡해결: react-query를 도입하여 loading처리 해결
+
+## 🔗4. 기술스택
 
 - Main Language
 
@@ -41,7 +49,7 @@ Service Link: https://my-content00.herokuapp.com/
   <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white">
   <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white">
 
-## 🔗4. 프로젝트 미리보기
+## 🔗5. 프로젝트 미리보기
 
 <img src='./client/photo/로그인.png' width='250px' height='250px'>
 <img src='./client/photo/회원가입.png' width='250px' height='250px'>
