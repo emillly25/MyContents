@@ -2,7 +2,7 @@ import axios from "axios";
 
 async function get(apiUrl) {
   const result = await axios.get(`${process.env.REACT_APP_BASE_URL}${apiUrl}`, {
-    withCredentials: true,
+    withCredentials: true, //쿠키 cors 통신 설정
     headers: {
       Authorization: sessionStorage.getItem("token"),
     },

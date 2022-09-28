@@ -1,6 +1,7 @@
 import * as api from "../api";
 
 export async function getAllList() {
+  console.log("get요청됨");
   return await api.get("/api/content");
 }
 

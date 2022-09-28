@@ -104,7 +104,7 @@ function CreateList() {
       <S.MobileContainer>
         <S.BackBtnBox
           onClick={() => {
-            navigate("/main");
+            navigate("/");
           }}
         >
           <FontAwesomeIcon icon={faArrowLeft} />

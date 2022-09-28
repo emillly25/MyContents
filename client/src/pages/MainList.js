@@ -16,14 +16,6 @@ import * as S from "../style/MainListStyle";
 
 function MainList() {
   const navigate = useNavigate();
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-      return;
-    }
-  }, []);
-
   const [isScroll, setIsScroll] = useState(false);
   const [genreData, setGenreData] = useState([]);
   const [activeGenre, setActiveGenre] = useState([
@@ -32,25 +24,39 @@ function MainList() {
     { genre: "영화", isActive: false },
     { genre: "책", isActive: false },
   ]);
+
+  //첫 접속시, 토큰없으면 로그인 페이지로 보내기
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+  }, []);
+
+  //리엑트쿼리로 data 받아오기
   const { isLoading, isError, data, error } = useQuery(
     ["content"],
     getAllList,
     {
+      refetchOnWindowFocus: false, //focus 다시 돌아와도 refetcing 안함
       select: (data) => {
         return data.data;
       },
+      onSettled: (data) => {
+        setGenreData(data);
+      },
       onSuccess: (data) => {
         console.log("MainList data", data);
-        setGenreData(data);
       },
     }
   );
 
+  //active Tab 설정
   function isActive(genre) {
     const result = activeGenre.find((el) => el.genre === genre);
     return result.isActive;
   }
-
   function tabChangeHandler(genre) {
     const newActiveGenre = activeGenre.map((el) => {
       return el.genre !== genre
@@ -77,6 +83,7 @@ function MainList() {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
+  console.log("data", data);
 
   return (
     <S.MobileContainer>

@@ -21,11 +21,12 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use("/", contentRouter);
+//라우팅
 app.use("/api/content", contentRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 
+//build
 app.use(express.static(path.join(__dirname, "../build")));
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../build/index.html"));
