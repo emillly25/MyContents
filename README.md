@@ -1,7 +1,8 @@
 # 🎬 My Contents
 
 Log your memorable contents any time✨ <br>
-Service Link: https://my-content00.herokuapp.com/
+Service Link: 
+notion : https://ninth-timimus-2a9.notion.site/MyContent-e126aa1965fb4b96a894d736026b2f9e?pvs=4
 
 ## 🔗1. 서비스 소개
 
